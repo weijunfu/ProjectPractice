@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    hikari:
+      # 连接池名称
+      pool-name: DataHikariCP
+      # 最小空闲时间
+      minimum-idle: 5
+      # 空闲连接存活时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 最大连接数
+      maximum-pool-size: 10
+      # 自动提交
+      auto-commit: true
+      # 连接最大存活时间，0表示永久，默认1800000（30分钟）
+      max-lifetime: 180000
+      # 连接超时时间，默认30000（30秒）
+      connection-timeout: 30000
+      # 测试连接是否可用的查询语句
+      connection-test-query: SELECT 1
+
+# Mybatis Plus 配置
+mybatis-plus:
+  # 配置映射文件
+  mapper-locations: classpath*:/mapper/*.xml
+  # 配置MyBatis数据返回类型别名，默认别名是类名
+  type-aliases-package: org.ijunfu.shopping.pojo
+
+# 日志配置
+logging:
+  level:
+    # 打印Mapper接口的日志
+    org.ijunfu.shopping.mapper: debug
