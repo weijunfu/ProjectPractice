@@ -1,8 +1,8 @@
-*/HELP.md
-*/.idea
-*/.mvn
-*/.gitignore
-*/*.iml
-*/mvnw
-*/mvnw.cmd
-*/target
+**/HELP.md
+**/.idea
+**/.mvn
+**/.gitignore
+**/*.iml
+**/mvnw
+**/mvnw.cmd
+**/target
