@@ -1,0 +1,32 @@
+# 语言环境
+language: zh
+
+# 多层级
+user:
+  name: ijunfu
+  age: 18
+
+# 数组
+likes:
+  - game
+  - music
+  - sleep
+
+# 复杂类型
+users2:
+  - name
+  - age
+
+# 变量
+dir: /data
+logPath: ${dir}/logs/
+
+# 转义字符
+titles: "id\tname\tage\tphone"
+
+# 创建类用于封装以下数据
+datasource:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/db
+  username: root
+  password: 123456
