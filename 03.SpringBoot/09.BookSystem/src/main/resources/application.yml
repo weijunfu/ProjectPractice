@@ -1,0 +1,23 @@
+server:
+  port: 80
+spring:
+  datasource:
+    schema: classpath:db/schema.sql   # 初始化数据库结构
+    druid:
+      driver-class-name: org.h2.Driver  # h2database
+      url: jdbc:h2:mem:book_system
+      username: root
+      password: 1234
+      validation-query: SELECT 1
+  h2:
+    console:
+      enabled: true     # 启用 h2database 控制台
+      path: /h2-console # h2database 控制台访问路径
+  main:
+    banner-mode: off    # 关闭 Banner
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: tb_ # 表前缀
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   # MyBatis Plus 调试日志，生产环境禁用
