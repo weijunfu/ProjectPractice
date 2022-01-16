@@ -1,5 +1,8 @@
 package org.ijunfu.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.ijunfu.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,5 +36,16 @@ class BookMapperTest {
         log.info("{}{}", "总图书数量：", count);
 
         assertEquals(0, count);
+    }
+
+    @Test
+    public void page() {
+        IPage<Book> page = new Page<>(1, 5);
+
+        bookMapper.selectPage(page, null);
+
+        log.info("{}", page.getTotal());
+
+        assertEquals(0, page.getTotal());
     }
 }

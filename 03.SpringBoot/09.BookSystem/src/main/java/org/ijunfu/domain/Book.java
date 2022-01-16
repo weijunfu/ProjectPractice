@@ -2,7 +2,7 @@ package org.ijunfu.domain;
 
 /**
  *
- * @Title          <Title>
+ * @Title          图书实体类
  * @Description    <TODO>
  *
  * @author weijunfu<ijunfu @ 1 6 3 . com>

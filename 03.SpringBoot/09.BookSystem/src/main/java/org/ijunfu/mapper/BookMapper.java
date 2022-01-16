@@ -6,7 +6,7 @@ import org.ijunfu.domain.Book;
 
 /**
  *
- * @Title          <Title>
+ * @Title          图书 Mapper接口
  * @Description    <TODO>
  *
  * @author weijunfu<ijunfu @ 1 6 3 . com>
