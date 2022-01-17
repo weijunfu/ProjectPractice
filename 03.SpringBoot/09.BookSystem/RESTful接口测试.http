@@ -1,0 +1,37 @@
+### 分页获取
+GET http://localhost:80/books
+Accept: application/json
+
+### 获取指定ID
+
+GET http://localhost:80/books/2
+Accept: application/json
+
+### 新增图书
+POST http://localhost:80/books
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "疯狂Java讲义（第5版）",
+  "author": "李刚",
+  "publisher": "电子工业出版社",
+  "remarks": "渗透Java编程思想，《向上生长》九边|北大信科教授齐荐，李刚作品行销几十万册，成为海峡两岸读者之选，赠送20+小时视频、源代码、课件、面试题"
+}
+
+### 修改 图书
+PUT http://localhost:80/books
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "疯狂Java讲义（第5版）2",
+  "author": "李刚2",
+  "publisher": "电子工业出版社2",
+  "remarks": "渗透Java编程思想，《向上生长》九边|北大信科教授齐荐，李刚作品行销几十万册，成为海峡两岸读者之选，赠送20+小时视频、源代码、课件、面试题"
+}
+
+### 删除图书
+DELETE http://localhost:80/books/3
+Accept: application/json
+
