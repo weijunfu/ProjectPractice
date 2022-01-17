@@ -16,3 +16,12 @@ public MybatisPlusInterceptor mybatisPlusInterceptor() {
     return interceptor;
 }
 ```
+
+
+## 错误
+
+
+### No converter found for return value of type
+
+问题原因：类属性未提供 Getter 和 Setter
+解决：补全 Getter 和 Setter

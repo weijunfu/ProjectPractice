@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ijunfu.domain.Book;
 import org.ijunfu.service.BookService;
+import org.ijunfu.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,28 +29,37 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public IPage<Book> getPageBook(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
+    public Response getPageBook(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize) {
         IPage<Book> pageBook = new Page<Book>(page, pageSize);
-        return bookService.page(pageBook);
+        bookService.page(pageBook);
+
+        return Response.ok(pageBook);
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable("id") Integer id) {
-        return bookService.getById(id);
+    public Response getBookById(@PathVariable("id") Integer id) {
+        Book book = bookService.getById(id);
+
+        return Response.ok(book);
     }
 
     @PostMapping
-    public boolean addBook(@RequestBody Book book) {
-        return bookService.save(book);
+    public Response addBook(@RequestBody Book book) {
+        boolean ret = bookService.save(book);
+
+        return ret ? Response.ok() : Response.error();
     }
 
     @PutMapping
-    public boolean updateBookById(@RequestBody Book book) {
-        return bookService.updateById(book);
+    public Response updateBookById(@RequestBody Book book) {
+        boolean ret = bookService.updateById(book);
+
+        return ret ? Response.ok() : Response.error();
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteBookById(@PathVariable("id") Integer id) {
-        return bookService.removeById(id);
+    public Response deleteBookById(@PathVariable("id") Integer id) {
+        boolean ret = bookService.removeById(id);
+        return ret ? Response.ok() : Response.error();
     }
 }
