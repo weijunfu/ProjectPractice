@@ -1,29 +1,27 @@
-# 图书系统
+package org.ijunfu.config;
 
-## 技术栈
-+ SpringBoot
-+ MyBatis Plus
-+ Druid
-+ H2database
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-## 分页
+import java.io.IOException;
+import java.util.List;
 
-```
-@Bean
-public MybatisPlusInterceptor mybatisPlusInterceptor() {
-    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-    interceptor.addInnerInterceptor(new PaginationInnerInterceptor());  // 开启分页
-    return interceptor;
-}
-```
+/**
+ *
+ * @Title          Jackson 消息转换器
+ * @Description    <TODO>
+ *
+ * @author weijunfu<ijunfu @ 1 6 3 . com>
+ * @date 2022/01/17 14:21
+ * @version 1.0.0
+ *
+ */
 
-## Jackson Null值处理
-
-### 步骤
-
-
-#### 1. 创建 Jackson消息转换器
-```java
 public class JacksonHttpMessageConverter extends MappingJackson2HttpMessageConverter  {
 
     /**
@@ -59,25 +57,3 @@ public class JacksonHttpMessageConverter extends MappingJackson2HttpMessageConve
     }
 
 }
-```
-
-#### 2. 向Spring中注册消息转换器
-```java
-@Configuration
-public class WebMvcConfig extends WebMvcConfigurationSupport {
-
-    @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-
-        converters.add(new JacksonHttpMessageConverter());      // 注册 Jackson 消息转换器
-    }
-}
-```
-
-## 错误
-
-### No converter found for return value of type
-
-问题原因：类属性未提供 Getter 和 Setter
-解决：补全 Getter 和 Setter
