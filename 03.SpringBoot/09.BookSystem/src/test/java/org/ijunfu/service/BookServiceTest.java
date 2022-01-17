@@ -24,7 +24,7 @@ class BookServiceTest {
 
     @Test
     public void count() {
-        boolean ret = bookService.delete(0);
+        boolean ret = bookService.removeById(0);
 
         assertEquals(false, ret);
     }
