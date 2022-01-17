@@ -1,5 +1,8 @@
 package org.ijunfu.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  *
  * @Title          图书实体类
@@ -13,17 +16,18 @@ package org.ijunfu.domain;
 
 public class Book {
 
-    private Integer id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
     private String name;
     private String author;
     private String publisher;
     private String remarks;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

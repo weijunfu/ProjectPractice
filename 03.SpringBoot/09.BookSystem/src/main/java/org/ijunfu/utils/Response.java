@@ -11,66 +11,50 @@ package org.ijunfu.utils;
  *
  */
 
-public class Response {
+public class Response<T> {
 
     private Integer status;
 
     private String msg;
 
-    private Object data;
+    private T data;
 
     public Response() {}
-
-    public Response(Integer status) {
-        this.status = status;
-    }
 
     public Response(Integer status, String msg) {
         this.status = status;
         this.msg = msg;
     }
 
-    public Response(Integer status, Object data) {
-        this.status = status;
-        this.data = data;
-    }
-
-    public Response(String msg, Object data) {
-       this.msg = msg;
-       this.data = data;
-
-    }
-
-    public Response(Integer status, String msg, Object data) {
+    public Response(Integer status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public static Response ok(){
-        return new Response(Status.OK);
+    public static Response<?> ok(){
+        return new Response<>(Status.OK, "成功");
     }
 
-    public static Response ok(Object data) {
-        return new Response(Status.OK, data);
+    public static Response<?> ok(String msg){
+        return new Response<>(Status.OK, msg);
     }
 
-    public static Response ok(Integer status, String msg, Object data) {
-        return new Response(status, msg, data);
+    public static <T> Response<T> ok(String msg, T data){
+        return new Response<T>(Status.OK, msg, data);
     }
 
-    public static Response error(){
-        return new Response(Status.ERROR);
+    public static Response<?> error(){
+        return new Response<>(Status.ERROR, "成功");
     }
 
-    public static Response error(Object data) {
-        return new Response(Status.OK, data);
+    public static Response<?> error(String msg){
+        return new Response<>(Status.ERROR, msg);
     }
 
-    public static Response error(Integer status, String msg, Object data) {
-        return new Response(status, msg, data);
+    public static <T> Response<T> error(String msg, T data){
+        return new Response<T>(Status.ERROR, msg, data);
     }
-
     public Integer getStatus() {
         return status;
     }
@@ -87,11 +71,11 @@ public class Response {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

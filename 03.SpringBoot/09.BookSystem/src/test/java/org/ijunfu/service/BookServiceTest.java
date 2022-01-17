@@ -51,7 +51,7 @@ class BookServiceTest {
     @Test
     void addBook() {
         Book book = new Book();
-        book.setId(3);
+        book.setId(3l);
         book.setName("疯狂Java讲义（第5版）");
         book.setAuthor("李刚");
         book.setPublisher("电子工业出版社");
@@ -64,7 +64,7 @@ class BookServiceTest {
     @Test
     void updateBookById() {
         Book book = new Book();
-        book.setId(2);
+        book.setId(2l);
         book.setName("疯狂Java讲义（第5版）");
         book.setAuthor("李刚");
         book.setPublisher("电子工业出版社");
