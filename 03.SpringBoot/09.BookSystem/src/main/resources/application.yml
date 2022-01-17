@@ -3,6 +3,7 @@ server:
 spring:
   datasource:
     schema: classpath:db/schema.sql   # 初始化数据库结构
+    data: classpath:db/data.sql       # 初始化数据
     druid:
       driver-class-name: org.h2.Driver  # h2database
       url: jdbc:h2:mem:book_system
