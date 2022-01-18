@@ -73,3 +73,29 @@ logging:
     base: warn                 # base 组日志级别
     pay: error                 # pay 组日志级别
 ```
+
+## 优化日志创建代码
+
+### 引入 lombok
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+</dependency>
+```
+
+### 使用类注解`@Slf4j`
+```java
+@Slf4j
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+
+        // 2. 调用日志方法，记录日志
+        log.info("SpringBoot 已启动");
+    }
+
+}
+```
