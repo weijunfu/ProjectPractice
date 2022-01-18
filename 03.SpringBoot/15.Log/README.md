@@ -125,3 +125,23 @@ logging:
 + %c: 类名
 + -: 左对齐，默认右对齐
 + .num: 保留多少位
+
+## 日志文件
+
+### 设置日志文件
+```yaml
+logging:
+  file:
+    name: server.log
+```
+
+### 设置滚动日志文件
+```yaml
+logging:
+  file:
+    name: server.log
+  logback:
+    rollingpolicy:
+      max-file-size: 4kb
+      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
+```
