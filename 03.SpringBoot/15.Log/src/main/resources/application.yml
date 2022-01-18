@@ -1,0 +1,10 @@
+logging:
+  group:
+    base: org.ijunfu.base       # base 组
+    pay: com.aliyun, com.qq     # pay 组，多个包使用逗号分隔
+  level:
+    root: info
+    base: warn                 # base 组日志级别
+    pay: error                 # pay 组日志级别
+
+
