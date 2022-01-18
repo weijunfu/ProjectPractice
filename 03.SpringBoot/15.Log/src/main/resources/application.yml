@@ -6,5 +6,6 @@ logging:
     root: info
     base: warn                 # base 组日志级别
     pay: error                 # pay 组日志级别
-
+  pattern:
+    console: "%d %clr(%5p) --- [%16t] %clr(%-40.40c){cyan} > %m%n"
 

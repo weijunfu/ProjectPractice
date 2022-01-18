@@ -99,3 +99,29 @@ public class Application {
 
 }
 ```
+
+## 设置日志输出格式
+
+### 简单格式
+```yaml
+logging:
+  pattern: 
+    console: "%d - %m%n"
+```
+
++ %d: 日期
++ %m: 消息
++ %n: 换行
+
+### 复杂格式
+```yaml
+logging:
+  pattern:
+    console: "%d %clr(%5p) --- [%16t] %clr(%-40.40c){cyan} > %m%n"
+```
+
++ %clr: 颜色 
++ %t: 线程
++ %c: 类名
++ -: 左对齐，默认右对齐
++ .num: 保留多少位
