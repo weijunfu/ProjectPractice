@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: pro
+    group:
+      "pro": proDB, proRedis
+      "dev": devDB, devRedis
+
+
