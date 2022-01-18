@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: test # ??????
+
+# ????
+# ...
+
+---
+spring:
+  profiles: pro # ????
+
+server:
+  port: 80
+
+---
+spring:
+  profiles: dev # ????
+
+server:
+  port: 81
+
+---
+spring:
+  profiles: test # ????
+
+server:
+  port: 82
