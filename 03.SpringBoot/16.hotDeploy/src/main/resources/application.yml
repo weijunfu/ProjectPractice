@@ -1,6 +1,6 @@
-# 应用名称
-spring.application.name=16.hotDeploy
-# 应用服务 WEB 访问端口
-server.port=8080
-
-
+spring:
+  devtools:
+    restart:
+      # 不参与热部署的文件或文件夹
+      exclude: static/**, public/**, config/application.yml
+      enabled: false
