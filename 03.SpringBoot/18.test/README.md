@@ -24,3 +24,36 @@ class ApplicationTests {
 
 ### 优势
 比多环境开发中的测试环境影响范围更小，仅对当前测试类有效。
+
+## 添加测试类专用配置
+> 使用`@Import`可加载当前测试类专用的配置
+
+### 配置类
+```java
+@Configuration
+public class MsgConfig {
+
+    @Bean
+    public String msg() {
+        return "test msg";
+    }
+}
+
+```
+
+### 测试类
+```java
+@SpringBootTest
+@Import(MsgConfig.class)
+public class MsgConfigTest {
+
+    @Autowired
+    private String msg;
+
+    @Test
+    public void testMsg() {
+        Assertions.assertEquals("test msg", msg);
+    }
+
+}
+```
