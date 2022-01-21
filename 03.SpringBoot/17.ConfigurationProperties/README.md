@@ -92,3 +92,30 @@ public class DruidConfig {
 ```
 
 需要注意的是`@EnableConfigurationProperties`和`@Component`冲突，因此`@EnableConfigurationProperties`指定的类上不能添加`@Component`。
+
+
+## 松散（宽松）绑定
+当我们是以`@ConfigurationProperties`绑定属性时，配置文件中属性名支持以下模式：
++ 驼峰模式
+```yaml
+db:
+  driverClassName: org.h2.Driver
+```
++ 下划线模式
+```yaml
+db:
+  driver_class_name: org.h2.Driver
+```
++ 中划线模式
+```yaml
+db:
+  driver-class-name: org.h2.Driver
+```
++ 常量模式
+```yaml
+db:
+  DRIVER_CLASS_NAME: org.h2.Driver
+```
+
+须注意的是，`@ConfigurationProperties`的`prefix`属性值仅能使用纯小写字母、数字、下划线作为合法的字符。
+`@Value`并不支持宽松绑定。
