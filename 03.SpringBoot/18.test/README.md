@@ -123,3 +123,64 @@ class BookControllerTest {
     }
 }
 ```
+
+### 测试请求返回值类型为JSON
+
+#### 测试基类
+```java
+@Data
+public class Book {
+
+    private Integer id;
+    private String name;
+    private String author;
+    private String type;
+    private String remarks;
+}
+```
+
+#### 测试Controller
+```java
+@Slf4j
+@RestController
+@RequestMapping("/books")
+public class BookController {
+    
+    @GetMapping
+    public Book getById() {
+        log.info("{}", "all is running...");
+
+        Book book = new Book();
+        book.setId(100827);
+        book.setName("SpringBoot 2.x");
+        book.setAuthor("SpringBoot");
+        book.setType("Java");
+        book.setRemarks("官方出品，盗版必究");
+
+        return book;
+    }
+}
+```
+
+#### 测试类
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // 定义Web环境
+@AutoConfigureMockMvc   // 开启虚拟MVC
+class BookControllerTest {
+
+    @Test
+    void testJSONBody(@Autowired MockMvc mvc) throws Exception {
+        // 1. 定义请求地址
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/books");
+        // 2. 执行请求
+        ResultActions actions = mvc.perform(builder);
+
+        // 3. 预计本次调用返回值
+        ContentResultMatchers content = MockMvcResultMatchers.content();
+        ResultMatcher ret = content.json("{\"id\": 100827,\n" + "\"name\": \"SpringBoot 2.x1\",\n" + "\"author\": \"SpringBoot\",\n" + "\"type\": \"Java\",\n" + "\"remarks\": \"官方出品，盗版必究\"}");
+
+        // 4. 与期望值对比
+        actions.andExpect(ret);
+    }
+}
+```
