@@ -146,6 +146,54 @@ public class DBConfig {
 
 ![image-20220121192639013](https://gitee.com/weijunfu/images/raw/master/typora/image-20220121192639013.png)
 
-`DataUtil`支持的空间计量单位：
+`DataUnit`支持的空间计量单位：
 
 ![image-20220121193531513](https://gitee.com/weijunfu/images/raw/master/typora/image-20220121193531513.png)
+
+## JavaBean 校验
+
+**步骤**：
+
+### 1. 引入JSR303规范
+```xml
+<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+</dependency>
+```
+### 2. 引入Hibernate校验框架
+```xml
+<dependency>
+    <groupId>org.hibernate.validator</groupId>
+    <artifactId>hibernate-validator</artifactId>
+</dependency>
+```
+
+### 3. 开启校验
+`@Validated` 用于启用校验。
+
+```java
+@Validated
+@Configuration
+@ConfigurationProperties(prefix = "user")
+public class UserConfig {
+    // ...
+}
+```
+
+### 4. 书写校验规则
+```java
+@Validated
+@Configuration
+@ConfigurationProperties(prefix = "user")
+public class UserConfig {
+
+    private String name;
+
+    @Max(value = 120, message = "年龄太大")
+    @Min(value = 0, message = "年龄太小")
+    private Integer age;
+
+   // ...
+}
+```

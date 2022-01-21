@@ -2,11 +2,14 @@ db:
   driverClassName: org.h2.Driver
   url: jdbc:h2:mem:test
   username: root
-  password: 123456hikari
+  password: 123456
   serverTimeout: 3
-  dataSize: 5
+  dataSize: 50
 datasource:
   driverClassName: org.h2.Driver
   url: jdbc:h2:mem:test
   username: root
-  password: 123456hikari
+  password: 123456
+user:
+  name: ijunfu
+  age: 130

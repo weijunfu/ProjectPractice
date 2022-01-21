@@ -3,10 +3,8 @@ package org.ijunfu.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.convert.DataSizeUnit;
 import org.springframework.boot.convert.DurationUnit;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.unit.DataSize;
 import org.springframework.util.unit.DataUnit;
-
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
@@ -29,7 +27,7 @@ public class DBConfig {
     private String username;
     private String password;
 
-    @DurationUnit(ChronoUnit.HOURS)
+    @DurationUnit(ChronoUnit.MILLIS)
     private Duration serverTimeout;
 
     @DataSizeUnit(DataUnit.MEGABYTES)

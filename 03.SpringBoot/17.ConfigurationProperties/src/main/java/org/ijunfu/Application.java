@@ -2,6 +2,7 @@ package org.ijunfu;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.ijunfu.config.DBConfig;
+import org.ijunfu.config.UserConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,6 +18,10 @@ public class Application {
 
         DruidDataSource dataSource = context.getBean(DruidDataSource.class);
         System.out.println(dataSource);
+
+        UserConfig user = context.getBean(UserConfig.class);
+        System.out.println(user);
+
     }
 
 }
