@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.StatusResultMatchers;
 
@@ -42,5 +43,20 @@ class BookControllerTest {
 
         // 4. 与期望值对比
         actions.andExpect(ok);
+    }
+
+    @Test
+    void testBody(@Autowired MockMvc mvc) throws Exception {
+        // 1. 定义请求地址
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/books");
+        // 2. 执行请求
+        ResultActions actions = mvc.perform(builder);
+
+        // 3. 预计本次调用返回值
+        ContentResultMatchers content = MockMvcResultMatchers.content();
+        ResultMatcher ret = content.string("query all books");
+
+        // 4. 与期望值对比
+        actions.andExpect(ret);
     }
 }
