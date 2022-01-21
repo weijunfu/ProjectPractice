@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @version 1.0.0
  *
  */
-@Configuration
+//@Configuration
 @ConfigurationProperties(prefix = "db")
 public class DBConfig {
 
