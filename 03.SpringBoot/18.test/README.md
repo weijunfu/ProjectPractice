@@ -57,3 +57,45 @@ public class MsgConfigTest {
 
 }
 ```
+
+## Web 测试
+
+### 测试请求状态
+
+#### Controller类
+```java
+@Slf4j
+@RestController
+@RequestMapping("/books")
+public class BookController {
+
+    @GetMapping
+    public String all() {
+        log.info("{}", "all is running...");
+        return "query all books";
+    }
+}
+```
+
+#### 测试类
+```java
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // 定义Web环境
+@AutoConfigureMockMvc   // 开启虚拟MVC
+class BookControllerTest {
+
+    @Test
+    void testStatus(@Autowired MockMvc mvc) throws Exception {
+        // 1. 定义请求地址
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/books");
+        // 2. 执行请求
+        ResultActions actions = mvc.perform(builder);
+
+        // 3. 预计本次执行成功，状态值为200
+        StatusResultMatchers status = MockMvcResultMatchers.status();
+        ResultMatcher ok = status.isOk();
+
+        // 4. 与期望值对比
+        actions.andExpect(ok);
+    }
+}
+```
