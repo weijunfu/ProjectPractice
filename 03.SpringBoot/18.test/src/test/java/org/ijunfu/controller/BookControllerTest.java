@@ -90,4 +90,27 @@ class BookControllerTest {
         // 4. 与期望值对比
         actions.andExpect(contentType);
     }
+
+    @Test
+    void testGetById(@Autowired MockMvc mvc) throws Exception {
+        // 1. 定义请求地址
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/books");
+        // 2. 执行请求
+        ResultActions actions = mvc.perform(builder);
+
+        // 3.1 测试状态
+        StatusResultMatchers status = MockMvcResultMatchers.status();
+        ResultMatcher ok = status.isOk();
+        actions.andExpect(ok);
+
+        // 3.2 测试响应头
+        HeaderResultMatchers header = MockMvcResultMatchers.header();
+        ResultMatcher contentType = header.string("Content-Type", "application/json");
+        actions.andExpect(contentType);
+
+        // 3.3 测试返回值
+        ContentResultMatchers content = MockMvcResultMatchers.content();
+        ResultMatcher ret = content.json("{\"id\": 100827,\n" + "\"name\": \"SpringBoot 2.x\",\n" + "\"author\": \"SpringBoot\",\n" + "\"type\": \"Java\",\n" + "\"remarks\": \"官方出品，盗版必究\"}");
+        actions.andExpect(ret);
+    }
 }
