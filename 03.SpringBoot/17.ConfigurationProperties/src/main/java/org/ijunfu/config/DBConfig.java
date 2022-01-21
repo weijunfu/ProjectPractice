@@ -1,7 +1,14 @@
 package org.ijunfu.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.convert.DataSizeUnit;
+import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.unit.DataSize;
+import org.springframework.util.unit.DataUnit;
+
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -21,6 +28,28 @@ public class DBConfig {
     private String url;
     private String username;
     private String password;
+
+    @DurationUnit(ChronoUnit.HOURS)
+    private Duration serverTimeout;
+
+    @DataSizeUnit(DataUnit.MEGABYTES)
+    private DataSize dataSize;
+
+    public Duration getServerTimeout() {
+        return serverTimeout;
+    }
+
+    public void setServerTimeout(Duration serverTimeout) {
+        this.serverTimeout = serverTimeout;
+    }
+
+    public DataSize getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(DataSize dataSize) {
+        this.dataSize = dataSize;
+    }
 
     public String getDriverClassName() {
         return driverClassName;
@@ -56,6 +85,6 @@ public class DBConfig {
 
     @Override
     public String toString() {
-        return "DBConfig{" + "driverClassName='" + driverClassName + '\'' + ", url='" + url + '\'' + ", username='" + username + '\'' + ", password='" + password + '\'' + '}';
+        return "{" + "driverClassName='" + driverClassName + '\'' + ", url='" + url + '\'' + ", username='" + username + '\'' + ", password='" + password + '\'' + ", serverTimeout=" + serverTimeout + ", dataSize=" + dataSize + '}';
     }
 }

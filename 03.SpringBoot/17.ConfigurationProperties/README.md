@@ -119,3 +119,33 @@ db:
 
 须注意的是，`@ConfigurationProperties`的`prefix`属性值仅能使用纯小写字母、数字、下划线作为合法的字符。
 `@Value`并不支持宽松绑定。
+
+## SpringBoot支持JDK8提供的时间与空间计量单位
+```java
+@ConfigurationProperties(prefix = "db")
+public class DBConfig {
+
+    private String driverClassName;
+    private String url;
+    private String username;
+    private String password;
+
+    @DurationUnit(ChronoUnit.HOURS)
+    private Duration serverTimeout;
+
+    @DataSizeUnit(DataUnit.MEGABYTES)
+    private DataSize dataSize;
+    
+    //...
+}
+```
+
+
+
+`ChronoUnit`支持的时间单位：
+
+![image-20220121192639013](https://gitee.com/weijunfu/images/raw/master/typora/image-20220121192639013.png)
+
+`DataUtil`支持的空间计量单位：
+
+![image-20220121193531513](https://gitee.com/weijunfu/images/raw/master/typora/image-20220121193531513.png)
