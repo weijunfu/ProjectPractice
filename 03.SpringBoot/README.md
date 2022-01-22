@@ -19,6 +19,8 @@
 + [15.日志的简单应用](./15.Log)
 + [16.热部署](./16.hotDeploy)
 + [17.配置的高级应用](./17.ConfigurationProperties)
++ [18.测试应用](./18.test)
++ [19.业务层回滚 & 随机数应用](./19.test-rollback)
 
 # 扩展
 
