@@ -17,6 +17,8 @@
 + [13.多环境配置的分组管理](./13.MultiEnvWithGroup)
 + [14.Maven兼容SpringBoot多环境](./14.MuitiEnvWithMaven)
 + [15.日志的简单应用](./15.Log)
++ [16.热部署](./16.hotDeploy)
++ [17.配置的高级应用](./17.ConfigurationProperties)
 
 # 扩展
 
