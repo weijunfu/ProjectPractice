@@ -1,4 +1,4 @@
-package org.ijunfu.domain.service;
+package org.ijunfu.service;
 
 import org.ijunfu.domain.Book;
 import org.junit.jupiter.api.Test;

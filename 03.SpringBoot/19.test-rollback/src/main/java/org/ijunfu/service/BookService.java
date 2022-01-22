@@ -1,4 +1,4 @@
-package org.ijunfu.domain.service;
+package org.ijunfu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.ijunfu.domain.Book;

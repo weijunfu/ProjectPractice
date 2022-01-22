@@ -23,3 +23,9 @@ mybatis-plus:
       id-type: auto
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+testcase:
+  book:
+    id: ${random.int(10,100)}
+    name: ${random.value}
+    uuid: ${random.uuid}
+    publishTime: ${random.long}

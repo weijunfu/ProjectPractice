@@ -1,8 +1,8 @@
-package org.ijunfu.domain.service.impl;
+package org.ijunfu.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.ijunfu.domain.Book;
-import org.ijunfu.domain.service.BookService;
+import org.ijunfu.service.BookService;
 import org.ijunfu.mapper.BookMapper;
 import org.springframework.stereotype.Service;
 

@@ -25,3 +25,20 @@ class BookServiceTest {
     
 }
 ```
+
+# 测试中随机数的使用
+测试用例数据通常采用随机值进行测试，使用SpringBoot提供的随机数为其赋值
+```yaml
+testcase:
+  book:
+    id: ${random.int(10,100)}   # 10~100 内随机数
+    name: ${random.value} # 随机字符串
+    uuid: ${random.uuid} # 随机UUID
+    publishTime: ${random.long} # 随机整数
+```
+
++ `${random.int}`: 随机整数
++ `${random.int(10)}`: 10以内的随机数
++ `${random.int(10,100)}`: 10~100以内的随机数，且`,`后不能添加空格，否则报错`NumberFormatException`
+
+须注意的是，其中的`()`可以是任意字符，例如`[]`,`!!`等，但不能使用特殊字符，例如`-`。
