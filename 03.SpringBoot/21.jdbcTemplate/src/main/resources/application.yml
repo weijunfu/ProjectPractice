@@ -1,0 +1,28 @@
+spring:
+  h2:
+    console:
+      enabled: true     # 启用H2控制台
+      path: /h2-console # h2 访问路径
+      settings:
+        web-allow-others: true
+  datasource: # 数据库配置
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+  sql:
+    init: # 初始化SQL
+      schema-locations: classpath*:db/schema.sql # 数据结构
+      data-locations: classpath*:db/data.sql # 数据
+      username: sa
+      password:
+  main:
+    banner-mode: off  # 关闭Banner
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+    root: info
+    org.springframework.jdbc.datasource.init: debug
