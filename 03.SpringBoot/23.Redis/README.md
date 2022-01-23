@@ -71,4 +71,31 @@ public class RedisTest {
 }
 ```
 
+## 客户端
+`RedisTemplate`是以对象作为Key和Value，内部对数据进行序列化。
 
+### String类型数据
+```java
+@SpringBootTest
+public class StringRedisTemplateTest {
+
+    @Autowired
+    StringRedisTemplate redis;
+
+    @Test
+    void set() {
+        ValueOperations<String, String> ops = redis.opsForValue();
+
+        ops.set("age", "18");
+    }
+
+    @Test
+    void get(){
+        ValueOperations<String, String> ops = redis.opsForValue();
+        String age = ops.get("age");
+        System.out.println(age);
+
+        Assertions.assertEquals("18", age);
+    }
+}
+```
