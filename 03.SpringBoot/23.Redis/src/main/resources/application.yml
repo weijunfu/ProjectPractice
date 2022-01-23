@@ -5,5 +5,5 @@ spring:
     host: localhost
     port: 14904
     password:
-
+    client-type: jedis
 

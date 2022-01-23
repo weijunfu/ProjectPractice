@@ -99,3 +99,22 @@ public class StringRedisTemplateTest {
     }
 }
 ```
+
+## Jedis
+
+### 1. 引入依赖
+```xml
+<dependency>
+    <groupId>redis.clients</groupId>
+    <artifactId>jedis</artifactId>
+</dependency>
+```
+
+### 2. 测试
+执行上述`StringRedisTemplateTest`测试类中的方法即可。
+
+
+## Lettcus & Jedis
++ Jedis采用直连的方式连接Redis服务器。当多线程模式下使用Jedis会存在线程安全问题，解决方案可以通过配置连接池使每个连接专用，这样整体性能就大受影响。
++ Lettcus是SpringBoot**默认**客户端。Lettcus基于Netty框架进行与Redis服务器连接，底层设计中采用`StatefulRedisConnection`。`StatefulRedisConnection`自身是线程安全的，可以保障并发访问安全问题，所以一个连接可以被多线程复用。
+  当然Lettcus也支持多连接实例一起工作。
