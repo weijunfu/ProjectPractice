@@ -1,0 +1,9 @@
+spring:
+  main:
+    banner-mode: off
+  redis:
+    host: localhost
+    port: 14904
+    password:
+
+
