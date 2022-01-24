@@ -1,0 +1,6 @@
+spring:
+  main:
+    banner-mode: off  # 关闭Banner
+  data:
+    mongodb:
+      uri: mongodb+srv://ijunfu:<password>@demo.esvju.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
