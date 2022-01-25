@@ -264,3 +264,96 @@ class ApplicationTests {
 
 }
 ```
+
+### 创建单文档
+```
+@Test
+void createDoc() throws IOException {
+    Book book = bookMapper.selectById(1l);
+    System.out.println(book);
+
+    ObjectMapper jsonMapper = new ObjectMapper();
+    String json = jsonMapper.writeValueAsString(book);
+    System.out.println(json);
+
+    IndexRequest indexRequest = new IndexRequest("books").id("1");
+    indexRequest.source(json, XContentType.JSON);
+    client.index(indexRequest, RequestOptions.DEFAULT);
+}
+```
+
+### 批量创建文档
+```
+@Test
+void createDocs() throws IOException {
+    List<Book> books = bookMapper.selectList(null);
+
+    BulkRequest bulk = new BulkRequest();
+
+    for(Book book : books) {
+        ObjectMapper jsonMapper = new ObjectMapper();
+        String json = jsonMapper.writeValueAsString(book);
+        System.out.println(json);
+
+        IndexRequest indexRequest = new IndexRequest("books").id(book.getId().toString());
+        indexRequest.source(json, XContentType.JSON);
+        bulk.add(indexRequest);
+    }
+
+    client.bulk(bulk, RequestOptions.DEFAULT);
+
+}
+```
+
+### 根据ID查询文档
+```
+@Test
+void getDocById() throws IOException {
+    GetRequest request = new GetRequest("books", "1");
+    GetResponse response = client.get(request, RequestOptions.DEFAULT);
+    String json = response.getSourceAsString();
+    System.out.println(json);
+}
+```
+
+### 根据条件查询文档
+```
+@Test
+void getDocByCondition() throws IOException {
+    SearchRequest request = new SearchRequest("books");
+    SearchSourceBuilder builder = new SearchSourceBuilder();
+    builder.query(QueryBuilders.termQuery("name", "语文"));
+    request.source(builder);
+    SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+
+    RestStatus status = response.status();
+    System.out.println(status.getStatus());
+    Assertions.assertEquals(200, status.getStatus());
+
+    SearchHit[] hits = response.getHits().getHits();
+    if(hits.length>0) {
+        for(SearchHit hit : hits) {
+            String json = hit.getSourceAsString();
+            System.out.println(json);
+
+            ObjectMapper jsonMapper = new ObjectMapper();
+            Book book = jsonMapper.readValue(json, Book.class);
+            System.out.println(book);
+        }
+    }
+
+}
+```
+
+## 扩展
+
+### 使用账号登录ElasticSearch
+```
+HttpHost host = HttpHost.create("http://localhost:9200");
+RestClientBuilder builder = RestClient.builder(host);
+
+CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("<username>", "<password>"));
+builder.setHttpClientConfigCallback(f -> f.setDefaultCredentialsProvider(credentialsProvider));
+RestHighLevelClient client = new RestHighLevelClient(builder);
+```

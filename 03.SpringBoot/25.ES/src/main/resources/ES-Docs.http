@@ -43,7 +43,7 @@ Accept: application/json
 }
 
 ### 4. 查询指定文档
-GET http://localhost:9200/books/_doc/4
+GET http://localhost:9200/books/_doc/1
 Accept: application/json
 
 ### 5. 查询所有文档
@@ -55,7 +55,7 @@ GET http://localhost:9200/books/_search?q=name:springboot
 Accept: application/json
 
 ### 7.删除文档
-DELETE http://localhost:9200/books/_doc/4
+DELETE http://localhost:9200/books/_doc/1
 Accept: application/json
 
 ### 8.修改文档(全量)

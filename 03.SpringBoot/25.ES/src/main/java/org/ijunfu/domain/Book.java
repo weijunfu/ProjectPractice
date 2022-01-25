@@ -2,6 +2,7 @@ package org.ijunfu.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 
 @Data
-public class Book {
+public class Book implements Serializable {
 
     private Long id;
     private String name;
