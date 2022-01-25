@@ -103,3 +103,109 @@ Content-Type: application/json
 + `keyword`: 关键字
 + `analyzer`: 分词器
 + `copy_to`: 分组，常用于组合查询
+
+## 文档
+
+### 创建文档的三种方式
+
+#### 1. 随机ID
+```http request
+POST http://localhost:9200/books/_doc
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "name": "springboot",
+  "author": "ijunfu",
+  "publishTime": "2022-01-25",
+  "price": 99.00,
+  "remarks": "test data"
+}
+```
+
+
+#### 2. 指定ID
+```http request
+POST http://localhost:9200/books/_doc/2
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "name": "springboot",
+  "author": "ijunfu",
+  "publishTime": "2022-01-25",
+  "price": 99.00,
+  "remarks": "test data"
+}
+```
+
+#### 3. 指定ID
+```http request
+POST http://localhost:9200/books/_create/3
+Content-Type: application/json
+Accept: application/json
+
+{
+"id": 1,
+"name": "springboot",
+"author": "ijunfu",
+"publishTime": "2022-01-25",
+"price": 99.00,
+"remarks": "test data"
+}
+```
+
+### 查询
+
+#### 查询指定文档
+
+```http request
+GET http://localhost:9200/books/_doc/2
+Accept: application/json
+```
+
+#### 查询所有文档
+```http request
+GET http://localhost:9200/books/_search
+Accept: application/json
+```
+
+#### 按条件查询
+```http request
+GET http://localhost:9200/books/_search?q=name:springboot
+Accept: application/json
+```
+
+### 删除文档
+```http request
+DELETE http://localhost:9200/books/_doc/2
+Accept: application/json
+```
+
+### 修改文档
+
+#### 全覆盖式修改
+```http request
+PUT http://localhost:9200/books/_doc/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "author": "wei"
+}
+```
+
+#### 增量修改
+```http request
+POST http://localhost:9200/books/_update/4
+Accept: application/json
+Content-Type: application/json
+
+{
+  "doc": {
+    "author": "wei"
+  }
+}
+```

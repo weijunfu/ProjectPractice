@@ -1,0 +1,79 @@
+# ES 文档基本操作
+
+### 1. 创建文档（随机ID），相当于关系型数据中的表
+POST http://localhost:9200/books/_doc
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "name": "springboot",
+  "author": "ijunfu",
+  "publishTime": "2022-01-25",
+  "price": 99.00,
+  "remarks": "test data"
+}
+
+### 2. 创建文档(指定ID)
+POST http://localhost:9200/books/_doc/4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 1,
+  "name": "springboot",
+  "author": "ijunfu",
+  "publishTime": "2022-01-25",
+  "price": 99.00,
+  "remarks": "test data"
+}
+
+### 3. 创建文档（指定ID）
+POST http://localhost:9200/books/_create/4
+Content-Type: application/json
+Accept: application/json
+
+{
+"id": 1,
+"name": "springboot",
+"author": "ijunfu",
+"publishTime": "2022-01-25",
+"price": 99.00,
+"remarks": "test data"
+}
+
+### 4. 查询指定文档
+GET http://localhost:9200/books/_doc/4
+Accept: application/json
+
+### 5. 查询所有文档
+GET http://localhost:9200/books/_search
+Accept: application/json
+
+### 6. 按条件查询
+GET http://localhost:9200/books/_search?q=name:springboot
+Accept: application/json
+
+### 7.删除文档
+DELETE http://localhost:9200/books/_doc/4
+Accept: application/json
+
+### 8.修改文档(全量)
+PUT http://localhost:9200/books/_doc/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "author": "wei"
+}
+
+### 9.修改文档（增量）
+POST http://localhost:9200/books/_update/4
+Accept: application/json
+Content-Type: application/json
+
+{
+  "doc": {
+    "author": "wei"
+  }
+}

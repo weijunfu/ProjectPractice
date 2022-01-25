@@ -1,4 +1,4 @@
-# ES 基本操作
+# ES 索引 基本操作
 
 ### 1. 创建books索引，在关系型数据库中相当于创建了books数据库
 PUT http://localhost:9200/books
