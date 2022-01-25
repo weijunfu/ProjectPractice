@@ -21,6 +21,12 @@
 + [17.配置的高级应用](./17.ConfigurationProperties)
 + [18.测试应用](./18.test)
 + [19.业务层回滚 & 随机数应用](./19.test-rollback)
++ [20.数据源](./20.datasource)
++ [21.整合JPA](./21.jdbcTemplate)
++ [22.内嵌数据库 & H2database](./22.h2)
++ [23.整合Redis](./23.Redis)
++ [24.整合MongoDB](./24.MongoDB)
++ [25.整合ElasticSearch](./25.ES)
 
 # 扩展
 
