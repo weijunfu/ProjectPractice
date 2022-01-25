@@ -1,0 +1,53 @@
+# ES 基本操作
+
+### 1. 创建books索引，在关系型数据库中相当于创建了books数据库
+PUT http://localhost:9200/books
+Accept: application/json
+
+
+### 2. 查询指定索引
+GET http://localhost:9200/books
+Accept: application/json
+
+### 3. 删除指定索引
+DELETE http://localhost:9200/books
+Accept: application/json
+
+### 4. 使用分词器创建索引
+PUT http://localhost:9200/books
+Accept: application/json
+Content-Type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "ik_max_word"
+      },
+      "author": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "copy_to": "all"
+      },
+      "publishTime": {
+        "type": "keyword"
+      },
+      "price": {
+        "type": "keyword"
+      },
+      "remarks": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "copy_to": "all"
+      },
+      "all": {
+        "type": "text",
+        "analyzer": "ik_max_word"
+      }
+    }
+  }
+}
