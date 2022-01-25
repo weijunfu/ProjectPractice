@@ -11,7 +11,7 @@ spring:
       schema-locations: classpath:db/schema.sql
       data-locations: classpath:db/data.sql
   elasticsearch:
-  elasticsearch
+    uris: http://localhost:9200
 
 mybatis-plus:
   global-config:

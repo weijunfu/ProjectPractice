@@ -209,3 +209,58 @@ Content-Type: application/json
   }
 }
 ```
+
+## SpringBoot 整合 ElasticSearch
+
+### 1. 引入依赖
+```xml
+<dependency>
+    <groupId>org.elasticsearch.client</groupId>
+    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+</dependency>
+```
+
+### 2. 测试
+```java
+@SpringBootTest
+class ApplicationTests {
+
+    static RestHighLevelClient client;
+
+    // 初始化
+    @BeforeAll
+    static void init() throws IOException {
+
+        HttpHost host = HttpHost.create("http://localhost:9200");
+        RestClientBuilder builder = RestClient.builder(host);
+        client = new RestHighLevelClient(builder);
+    }
+
+    // 创建索引
+    @Test
+    void createIndex() throws IOException {
+        CreateIndexRequest booksIndexRequest = new CreateIndexRequest("books");
+        client.indices().create(booksIndexRequest, RequestOptions.DEFAULT);
+    }
+
+    // 获取索引
+    @Test
+    void getIndex() throws IOException {
+        GetIndexRequest booksIndexRequest = new GetIndexRequest("books");
+        GetIndexResponse response = client.indices().get(booksIndexRequest, RequestOptions.DEFAULT);
+
+        System.out.println(Arrays.asList(response.getIndices()));
+    }
+
+    // 关闭资源
+    @AfterAll
+    static void close() {
+        try {
+            client.close();
+        } catch (IOException e) {
+            client = null;
+        }
+    }
+
+}
+```
