@@ -1,0 +1,22 @@
+# 前端测试
+
+## 图书
+
+### 1. 查询所有图书
+GET http://localhost/books
+Accept: application/json
+
+### 2. 新增图书
+POST http://localhost/books
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "SpringBoot",
+  "author": "ijunfu",
+  "price": 99.00,
+  "publishTime": "2022-01-26",
+  "publisher": "人民邮电出版社",
+  "remarks": "测试数据^_^"
+}
