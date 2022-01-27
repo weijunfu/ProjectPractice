@@ -82,3 +82,65 @@ java -jar *.jar --key=value
 ```shell
 java -jar *.jar --server.port=80
 ```
+
+## 小知识
+
+### POST 请求
+
+`@RequestBody`决定了请求的数据传输方式。
+
+#### 使用方式 1
+
+##### 源码
+```java
+@RestController
+@RequestMapping("/sms")
+public class SMSCodeController {
+
+    @Autowired
+    SMSCodeService smsCodeService;
+
+    @PostMapping
+    public Boolean checkCode(SMSCode smsCode) {
+        return smsCodeService.checkCode(smsCode);
+    }
+}
+```
+
+##### 测试
+```http request
+POST http://localhost/sms?tel=18888888888&code=517112
+Accept: application/json
+
+
+```
+
+#### 使用方式 2
+
+##### 源码
+```java
+@RestController
+@RequestMapping("/sms")
+public class SMSCodeController {
+
+    @Autowired
+    SMSCodeService smsCodeService;
+
+    @PostMapping
+    public Boolean checkCode(@RequestBody SMSCode smsCode) {
+        return smsCodeService.checkCode(smsCode);
+    }
+}
+```
+
+##### 测试
+```http request
+POST http://localhost/sms
+Content-Type: application/json
+
+{
+  "tel": "18888888888",
+  "code": "517112"
+}
+
+```
