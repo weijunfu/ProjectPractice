@@ -1,0 +1,16 @@
+# 手机验证码
+
+### 1. 获取手机验证码
+GET http://localhost/sms?tel=18888888888
+Accept: application/json
+
+
+### 2. 校验手机验证码
+POST http://localhost/sms
+Content-Type: application/json
+
+{
+  "tel": "18888888888",
+  "code": "517112"
+}
+
