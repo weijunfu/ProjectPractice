@@ -112,3 +112,10 @@ spring:
 
 </ehcache>
 ```
+
+## 数据淘汰策略
+
++ `volatile-lru`: 挑选最近最少使用的数据淘汰
++ `volatile-lfu`: 挑选最近使用次数最少的数据淘汰
++ `volatile-ttl`: 挑选将要过期的数据淘汰
++ `volatile-random`: 任意选择数据淘汰
