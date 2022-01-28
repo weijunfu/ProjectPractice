@@ -119,3 +119,34 @@ spring:
 + `volatile-lfu`: 挑选最近使用次数最少的数据淘汰
 + `volatile-ttl`: 挑选将要过期的数据淘汰
 + `volatile-random`: 任意选择数据淘汰
+
+
+## 使用Redis做缓存
+
+SpringBoot 整合 Redis 步骤：
+
+### 1. 引入依赖
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+### 2. 配置
+```yaml
+spring:
+  main:
+    banner-mode: off
+  cache:
+    type: redis
+    redis:
+      use-key-prefix: true    # 是否使用key前缀
+      key-prefix: ssm_        # key 前缀，
+      cache-null-values: false  # 是否缓存null值
+      time-to-live: 10s   # 活跃时间
+  redis:
+    host: ...
+    port: ...
+    password: ...
+```

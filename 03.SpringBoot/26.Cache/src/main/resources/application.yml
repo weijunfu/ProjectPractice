@@ -18,7 +18,17 @@ spring:
       settings:
         web-allow-others: true
   cache:
-    type: ehcache
+    type: redis
+    redis:
+      use-key-prefix: true    # 是否使用key前缀
+      key-prefix: ssm_        # key 前缀，
+      cache-null-values: false  # 是否缓存null值
+      time-to-live: 10s   # 活跃时间
+  redis:
+    host:
+    port:
+    password:
+
 
 mybatis-plus:
   global-config:

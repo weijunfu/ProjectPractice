@@ -36,7 +36,7 @@ public class SMSUtil {
         return ZEROS[len-1] + str;
     }
 
-    @Cacheable(cacheNames = {"smsCode"}, key = "#tel")
+    @Cacheable(cacheNames = {"smsCode"}, key = "#tel", unless = "#result == null")
     public String getSMSCodeFromCache(String tel) {
         return null;
     }
