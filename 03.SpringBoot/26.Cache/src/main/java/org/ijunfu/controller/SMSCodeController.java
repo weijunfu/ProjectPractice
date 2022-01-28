@@ -1,9 +1,14 @@
 package org.ijunfu.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import net.rubyeye.xmemcached.MemcachedClient;
+import net.rubyeye.xmemcached.exception.MemcachedException;
 import org.ijunfu.domain.SMSCode;
 import org.ijunfu.service.SMSCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeoutException;
 
 /**
  *
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 
+@Slf4j
 @RestController
 @RequestMapping("/sms")
 public class SMSCodeController {
@@ -23,13 +29,36 @@ public class SMSCodeController {
     @Autowired
     SMSCodeService smsCodeService;
 
+    @Autowired
+    MemcachedClient memcachedClient;
+
     @GetMapping
     public String getCode(String tel) {
-        return smsCodeService.send(tel);
+        String code = smsCodeService.send(tel);
+
+        try {
+            memcachedClient.set(tel, 10, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("{}", e.getMessage());
+        }
+
+        return code;
     }
 
     @PostMapping
     public Boolean checkCode(@RequestBody SMSCode smsCode) {
-        return smsCodeService.checkCode(smsCode);
+
+        try {
+            String code = memcachedClient.get(smsCode.getTel()).toString();
+
+            return smsCode.getCode().equals(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("{}", e.getMessage());
+        }
+
+        return false;
+        //        return smsCodeService.checkCode(smsCode);
     }
 }

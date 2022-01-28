@@ -150,3 +150,164 @@ spring:
     port: ...
     password: ...
 ```
+
+
+## memcached 
+
+### 安装 & 配置（1.4.4）
+
+#### 安装
+```shell
+memcached.exe -d install
+```
+
+#### 启动 & 停止
+```shell
+# 启动
+memcached.exe -d start
+
+# 停止
+memcached.exe -d stop
+```
+
+#### 卸载
+
+```shell
+memcached.exe -d uninstall
+```
+
+### 客户端
++ Memcached Client for Java: 最早期客户端，稳定可靠，用户群广
++ SpyMemcached：效率更高
++ XmemCached：并发处理更好
+
+SpringBoot未提供对`memcached`的整合，需要使用硬编码方式实现客户端初始化管理。
+
+### SpringBoot 整合 Memcached
+
+#### 1. 引入依赖
+
+```xml
+<dependency>
+    <groupId>com.googlecode.xmemcached</groupId>
+    <artifactId>xmemcached</artifactId>
+    <version>2.4.7</version>
+</dependency>
+```
+
+#### 2. 参数配置
+```yaml
+xmemcached:
+  servers: localhost:11211
+  poolSize: 10
+  opTimeout: 3000
+```
+
+```java
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "xmemcached")
+public class XMemcachedProperties {
+
+    private String servers;
+    private int poolSize;
+    private long opTimeout;
+}
+```
+
+#### 3. 初始化配置
+```java
+@Configuration
+public class XMemcachedConfig {
+
+    @Autowired
+    private XMemcachedProperties xMemcachedProperties;
+
+    @Bean
+    public MemcachedClient getMemcachedClient() throws IOException {
+
+        MemcachedClientBuilder builder = new XMemcachedClientBuilder(xMemcachedProperties.getServers());
+        builder.setConnectionPoolSize(xMemcachedProperties.getPoolSize());
+        builder.setOpTimeout(xMemcachedProperties.getOpTimeout());
+
+        MemcachedClient client = builder.build();
+        return client;
+    }
+}
+```
+
+#### 4. 存入缓存
+```java
+@Slf4j
+@RestController
+@RequestMapping("/sms")
+public class SMSCodeController {
+
+    @Autowired
+    SMSCodeService smsCodeService;
+
+    @Autowired
+    MemcachedClient memcachedClient;
+
+    @GetMapping
+    public String getCode(String tel) {
+        String code = smsCodeService.send(tel);
+
+        try {
+            // 存入缓存
+            memcachedClient.set(tel, 10, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("{}", e.getMessage());
+        }
+
+        return code;
+    }
+}
+```
+
+#### 5. 从缓存中读取数据
+```java
+@Slf4j
+@RestController
+@RequestMapping("/sms")
+public class SMSCodeController {
+
+    @Autowired
+    SMSCodeService smsCodeService;
+
+    @Autowired
+    MemcachedClient memcachedClient;
+
+    @GetMapping
+    public String getCode(String tel) {
+        String code = smsCodeService.send(tel);
+
+        try {
+            memcachedClient.set(tel, 10, code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("{}", e.getMessage());
+        }
+
+        return code;
+    }
+
+    @PostMapping
+    public Boolean checkCode(@RequestBody SMSCode smsCode) {
+
+        try {
+            // 从缓存中读取数据
+            String code = memcachedClient.get(smsCode.getTel()).toString();
+
+            return smsCode.getCode().equals(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("{}", e.getMessage());
+        }
+
+        return false;
+    }
+}
+```
+
