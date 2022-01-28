@@ -17,6 +17,9 @@ spring:
       path: /h2-console
       settings:
         web-allow-others: true
+  cache:
+    type: ehcache
+
 mybatis-plus:
   global-config:
     db-config:

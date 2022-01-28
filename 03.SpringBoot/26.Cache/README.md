@@ -51,3 +51,64 @@ public class BookController {
     }
 }
 ```
+
+## ehcache
+
+SpringBoot 整合 ehcache 步骤：
+
+### 1. 引入依赖
+```xml
+<dependency>
+    <groupId>net.sf.ehcache</groupId>
+    <artifactId>ehcache</artifactId>
+</dependency>
+```
+
+### 2. 配置
+```yaml
+spring:
+  cache:
+    type: ehcache
+```
+
+### 3. Ehcache配置
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http:///ehcache.org/ehcache.xsd"
+        updateCheck="false">
+
+    <!-- 存储路径，缓存持久化到硬盘时使用 -->
+    <diskStore path="D:/temp/cache" />
+
+    <!-- 默认缓存策略 -->
+    <!-- external：是否永久存在，值为true则不会被清除，此时与timeout冲突，通常设置为false-->
+    <!-- diskPersistent：是否启用磁盘持久化-->
+    <!-- maxElementsInMemory：最大缓存数量-->
+    <!-- overflowToDisk：超过最大缓存数量是否持久化到硬盘-->
+    <!-- timeToLiveSeconds：最大存活时间-->
+    <!-- timeToIdleSeconds：最大不活动间隔，设置时间过长缓存容易溢出，设置过短无效果，可用于记录时效性数据，例如验证码-->
+    <!-- memoryStoreEvictionPolicy：缓存清除策略-->
+    <defaultCache eternal="false"
+        diskPersistent="false"
+        maxElementsInMemory="1000"
+        overflowToDisk="false"
+        timeToIdleSeconds="60"
+        timeToLiveSeconds="60"
+        memoryStoreEvictionPolicy="LRU"
+    />
+
+    <!-- 短信缓存 -->
+    <cache
+        name="smsCode"
+        eternal="false"
+      diskPersistent="false"
+      maxElementsInMemory="1000"
+      overflowToDisk="false"
+      timeToIdleSeconds="10"
+        timeToLiveSeconds="10"
+      memoryStoreEvictionPolicy="LRU"
+    />
+
+</ehcache>
+```
