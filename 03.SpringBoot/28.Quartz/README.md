@@ -65,3 +65,44 @@ public class QuartzConfig {
 }
 ```
 
+
+
+## Spring Task
+
+### 1. 开启定时任务
+```java
+@EnableScheduling       // 开启定时任务
+@SpringBootApplication
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}
+```
+
+### 2. 设置定时执行的任务，并设定执行周期
+```java
+@Component
+public class MyTask {
+
+    @Scheduled(cron = "0/1 * * * * ?")
+    public void print() {
+        System.out.println("task run...   ");
+    }
+}
+```
+
+### 3. 任务配置
+```yaml
+spring:
+  task:
+    scheduling:
+      pool:
+        size: 10      # 线程池大小
+      thread-name-prefix: sp_task_    # 线程前缀
+      shutdown:
+        await-termination: false  # 线程池关闭时，等待所有任务完成
+        await-termination-period: 10s # 调度线程关闭之前，最大等待时间，确保最后一定关闭
+```
