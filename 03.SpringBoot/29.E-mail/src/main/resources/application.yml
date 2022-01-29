@@ -1,0 +1,6 @@
+spring:
+  mail:
+    host: smtp.sina.com
+    username:
+    password:
+
