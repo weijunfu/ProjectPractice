@@ -1,5 +1,7 @@
 package org.ijunfu.service;
 
+import java.io.File;
+
 /**
  *
  * @Title          <Title>
@@ -14,4 +16,8 @@ package org.ijunfu.service;
 public interface SendMailService {
 
     void send(String to, String subject, String html);
+
+    void sendHTML(String to, String subject, String content);
+
+    void sendAttach(String to, String subject, String content, File[] files);
 }
