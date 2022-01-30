@@ -40,3 +40,36 @@
 + 支持自定义全局通用操作、支持关键词自动转义
 + 内置代码生成器、内置分页插件、内置性能分析插件
 + 内置全局拦截插件、内置SQL注入剥离器
+
+## 二、lombok
+
+### 2.1 引入依赖
+
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
+
+### 2.2 常用注解
+
++ `@Data`：
+  + `@ToString`：覆盖默认的`toString()`方法，可通过`of`属性限定显示字段，通过`exclude`属性排除某些字段
+  + `@EqualsAndHashCode`：覆盖默认的`equals()`和`hashCode()`方法
+  + `@Getter`/`@Setter`：生成所有成员变量的`getter`和`setter`方法
+  + `@RequiredArgsConstructor`：生成构造函数
++ `@Slf4j`：为类提供一个属性名为`log`的日志对象
+
+### 2.3 示例
+
+```java
+import lombok.Data;
+
+@Data
+public class User{
+    private Integer uid;
+    private String username;
+}
+```
