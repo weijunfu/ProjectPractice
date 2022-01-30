@@ -21,15 +21,15 @@ spring:
     console:
       enabled: true
       path: /h2-console
-  redis:
-    host: lo
-    port: 1
-    password:
+#  redis:
+#    host: lo
+#    port: 1
+#    password:
 
 mybatis-plus:
   global-config:
     db-config:
-      table-prefix: tb_
+      table-prefix: t_
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
