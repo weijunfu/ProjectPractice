@@ -1,0 +1,8 @@
+server:
+  port: 80
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: MyBatis Plus深入浅出教程
+
