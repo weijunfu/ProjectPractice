@@ -1,6 +1,7 @@
 package org.ijunfu.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
@@ -22,7 +23,8 @@ public class User {
 
     @TableId(type = IdType.AUTO)
     private Long id;            // 主键
-    private String name;        // 姓名
+    @TableField("name")
+    private String username;        // 姓名
     private Byte age;           // 年龄
     private String email;       // 邮箱
     private Long managerId;    // 直属上级ID

@@ -48,7 +48,7 @@ class UserMapperTest {
     void save() {
         User user = new User();
         user.setId(System.currentTimeMillis());
-        user.setName("test");
+        user.setUsername("test");
         user.setManagerId(2l);
 
         int ret = mapper.insert(user);
@@ -63,7 +63,7 @@ class UserMapperTest {
         User user = mapper.selectById(2);
         System.out.println(user);
 
-        user.setName("A");
+        user.setUsername("A");
         int ret = mapper.updateById(user);
         assertEquals(1, ret);
 
