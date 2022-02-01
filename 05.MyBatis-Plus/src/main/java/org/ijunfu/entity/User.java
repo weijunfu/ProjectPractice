@@ -1,5 +1,7 @@
 package org.ijunfu.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.Date;
 @Data
 public class User {
 
+    @TableId(type = IdType.AUTO)
     private Long id;            // 主键
     private String name;        // 姓名
     private Byte age;           // 年龄
