@@ -76,7 +76,7 @@ public class User{
 
 ## 快速入门小例子
 
-### 常用注解
+### 1. 常用注解
 
 #### 1. 主键 `@TableId`
 ```java
@@ -185,3 +185,27 @@ public class User {
 }
 
 ```
+
+### 2. 查询
+
+#### 2.1 通过ID查询
+```
+User user = mapper.selectById(2);
+System.out.println(user);
+```
+
+#### 2.2 通过ID列表，查询所有ID值在列表中的数据
+```
+List<Integer> ids = Arrays.asList(1, 2);
+mapper.selectBatchIds(ids);
+```
+
+#### 2.3 使用Map传入参数，获取结果列表
+```
+Map<String, Object> columnsMap = new HashMap<>();
+columnsMap.put("id", 1);
+columnsMap.put("name", "root");
+List<User> users = mapper.selectByMap(columnsMap);
+System.out.println(users);
+```
+必须注意的是，`Map`中的`Key`为数据库表中的列字段。

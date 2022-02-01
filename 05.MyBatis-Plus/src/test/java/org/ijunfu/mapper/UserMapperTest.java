@@ -66,7 +66,7 @@ class UserMapperTest {
         User user = mapper.selectById(2);
         System.out.println(user);
 
-        user.setUsername("A");
+        user.setUsername("admin");
         int ret = mapper.updateById(user);
         assertEquals(1, ret);
 
