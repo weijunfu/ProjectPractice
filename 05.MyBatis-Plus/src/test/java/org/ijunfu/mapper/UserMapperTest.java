@@ -51,6 +51,9 @@ class UserMapperTest {
         user.setUsername("test");
         user.setManagerId(2l);
 
+        user.setExt1("ext 1...");
+        User.setExt2("ext 2...");
+
         int ret = mapper.insert(user);
         assertEquals(1, ret);
 

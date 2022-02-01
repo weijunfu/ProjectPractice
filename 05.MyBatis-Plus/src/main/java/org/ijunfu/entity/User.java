@@ -29,4 +29,18 @@ public class User {
     private String email;       // 邮箱
     private Long managerId;    // 直属上级ID
     private Date createTime;   // 创建时间
+
+    private transient String ext1;
+    private static String ext2;
+
+    @TableField(exist = false)
+    private String ext3;
+
+    public static String getExt2() {
+        return ext2;
+    }
+
+    public static void setExt2(String ext2) {
+        User.ext2 = ext2;
+    }
 }

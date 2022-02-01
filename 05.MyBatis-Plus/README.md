@@ -76,3 +76,112 @@ public class User{
 
 ## 快速入门小例子
 
+### 常用注解
+
+#### 1. 主键 `@TableId`
+```java
+@Data
+public class User {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+    private String username;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+}
+```
+#### 2. 类属性与表字段映射`@TableField`
+```java
+@Data
+public class User {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+    @TableField("name")
+    private String username;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+}
+```
+
+#### 3. 排除字段的三种方式
+
+##### 3.1 `transient` 修饰
+```java
+@Data
+public class User {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+    @TableField("name")
+    private String username;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+
+    private transient String ext1;
+}
+```
+##### 3.2 静态属性
+```java
+@Data
+public class User {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+    @TableField("name")
+    private String username;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+
+    private transient String ext1;
+    private static String ext2;
+
+    public static String getExt2() {
+        return ext2;
+    }
+
+    public static void setExt2(String ext2) {
+        User.ext2 = ext2;
+    }
+}
+```
+
+##### 3.3 `@TableField(exist = false)`
+```java
+
+@Data
+public class User {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+    @TableField("name")
+    private String username;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+
+    private transient String ext1;
+    private static String ext2;
+
+    @TableField(exist = false)
+    private String ext3;
+
+    public static String getExt2() {
+        return ext2;
+    }
+
+    public static void setExt2(String ext2) {
+        User.ext2 = ext2;
+    }
+}
+
+```
