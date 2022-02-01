@@ -5,4 +5,31 @@ spring:
     banner-mode: off
   application:
     name: MyBatis Plus深入浅出教程
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/mps
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 20
+  sql:
+    init:
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: tb_
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: warn
+    org.springframework.boot.autoconfigure.sql.init: trace
+    org.ijunfu.mapper: trace
