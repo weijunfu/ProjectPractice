@@ -388,3 +388,7 @@ mybatis-plus:
     db-config:
       id-type: assign_id
 ```
+
+
+### 5. 通用Service
+
