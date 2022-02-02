@@ -360,3 +360,31 @@ class UserMapperWithARTest {
     }
 }
 ```
+
+### 4. 主键策略
+
+局部策略优先级高于全局策略。
+
+#### 4.1 局部主键策略`@TableId`
+```java
+@Data
+public class User extends Model<User> {
+
+  @TableId(type = IdType.ASSIGN_ID)
+  private Long id;            // 主键
+
+  private String name;        // 姓名
+  private Byte age;           // 年龄
+  private String email;       // 邮箱
+  private Long managerId;    // 直属上级ID
+  private Date createTime;   // 创建时间
+}
+```
+
+#### 4.2 全局主键策略
+```yaml
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: assign_id
+```

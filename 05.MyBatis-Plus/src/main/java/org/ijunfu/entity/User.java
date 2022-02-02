@@ -22,7 +22,7 @@ import java.util.Date;
 @Data
 public class User extends Model<User> {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;            // 主键
 
     private String name;        // 姓名
