@@ -1,5 +1,6 @@
 package org.ijunfu.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class Teacher {
     private Integer version;        // 版本
 
     @TableLogic
+    @TableField(select = false)     //查询时，不显示字段
     private Integer deleted;        // 是否删除
     private Date createTime;       // 创建时间
     private Date lastUpdateTime;  //最后更新时间

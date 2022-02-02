@@ -43,4 +43,10 @@ class TeacherMapperTest {
         list = teacherMapper.selectList(null);
         log.info("{}", list.size());
     }
+
+    @Test
+    void select() {
+        List<Teacher> list = teacherMapper.selectList(null);
+        log.info("{}", list.size());
+    }
 }

@@ -416,7 +416,7 @@ public class Teacher {
 }
 ```
 
-#### 2.1 测试
+#### 1.2 测试
 ```
  List<Teacher> list = teacherMapper.selectList(null);
 log.info("{}", list.size());
@@ -428,3 +428,34 @@ log.info("{}", list.size());
 ```
 
 `deleteById`实际执行的SQL语句为：`UPDATE tb_teacher SET deleted=1 WHERE id=8 AND deleted=0`
+
+### 2. 排除字段
+
+#### 2.1 `@TableField(select = false) `
+```java
+@Data
+public class Teacher {
+
+    private String id;          // 主键
+    private String name;        // 姓名
+    private Integer age;        // 年龄
+    private String email;       // 邮箱
+    private String managerId;     // 直属上级ID
+    private Integer version;        // 版本
+
+    @TableLogic
+    @TableField(select = false)     //查询时，不显示字段
+    private Integer deleted;        // 是否删除
+    private Date createTime;       // 创建时间
+    private Date lastUpdateTime;  //最后更新时间
+}
+```
+
+#### 2.2 测试
+```
+List<Teacher> list = teacherMapper.selectList(null);
+log.info("{}", list.size());
+```
+
+实际执行SQL为：`SELECT id,name,age,email,manager_id,version,create_time,last_update_time FROM tb_teacher WHERE deleted=0`
+
