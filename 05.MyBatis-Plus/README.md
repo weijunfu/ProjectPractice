@@ -392,3 +392,39 @@ mybatis-plus:
 
 ### 5. 通用Service
 
+
+## 高级应用
+
+### 1. 逻辑删除
+
+#### 1.1 `@TableLogic` 
+```java
+@Data
+public class Teacher {
+
+    private String id;          // 主键
+    private String name;        // 姓名
+    private Integer age;        // 年龄
+    private String email;       // 邮箱
+    private String managerId;     // 直属上级ID
+    private Integer version;        // 版本
+
+    @TableLogic
+    private Integer deleted;        // 是否删除
+    private Date createTime;       // 创建时间
+    private Date lastUpdateTime;  //最后更新时间
+}
+```
+
+#### 2.1 测试
+```
+ List<Teacher> list = teacherMapper.selectList(null);
+log.info("{}", list.size());
+
+int ret = teacherMapper.deleteById(8);
+
+list = teacherMapper.selectList(null);
+log.info("{}", list.size());
+```
+
+`deleteById`实际执行的SQL语句为：`UPDATE tb_teacher SET deleted=1 WHERE id=8 AND deleted=0`
