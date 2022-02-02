@@ -23,8 +23,8 @@ public class User {
 
     @TableId(type = IdType.AUTO)
     private Long id;            // 主键
-    @TableField("name")
-    private String username;        // 姓名
+
+    private String name;        // 姓名
     private Byte age;           // 年龄
     private String email;       // 邮箱
     private Long managerId;    // 直属上级ID

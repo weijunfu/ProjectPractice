@@ -48,7 +48,7 @@ class UserMapperTest {
     void save() {
         User user = new User();
         user.setId(System.currentTimeMillis());
-        user.setUsername("test");
+        user.setName("test");
         user.setManagerId(2l);
 
         user.setExt1("ext 1...");
@@ -66,7 +66,7 @@ class UserMapperTest {
         User user = mapper.selectById(2);
         System.out.println(user);
 
-        user.setUsername("admin");
+        user.setName("admin");
         int ret = mapper.updateById(user);
         assertEquals(1, ret);
 
@@ -80,6 +80,5 @@ class UserMapperTest {
 
         Long count = mapper.selectCount(null);
         assertEquals(1, count);
-
     }
 }

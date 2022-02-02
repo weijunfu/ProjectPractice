@@ -209,3 +209,5 @@ List<User> users = mapper.selectByMap(columnsMap);
 System.out.println(users);
 ```
 必须注意的是，`Map`中的`Key`为数据库表中的列字段。
+
+#### 2.4 
