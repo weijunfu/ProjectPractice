@@ -44,4 +44,18 @@ class UserPagMapperTest {
         List<User> userList = page.getRecords();
         log.info("{}", userList);
     }
+
+    @Test
+    void page2() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+        Page<User> page = new Page<>(1, 2);
+
+        mapper.selectByPage(page, queryWrapper);
+
+        log.info("{} {} {}", page.getPages(), page.getSize(), page.getTotal());
+
+        List<User> userList = page.getRecords();
+        log.info("{}", userList);
+    }
 }

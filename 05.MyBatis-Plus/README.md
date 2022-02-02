@@ -258,3 +258,24 @@ List<User> userList = page.getRecords();
 log.info("{}", userList);
 ```
 
+#### 2.5 自定义分页
+
+##### 定义分页方法
+```
+@Select("select * from tb_user ${ew.customSqlSegment}")
+IPage<User> selectByPage(Page<User> page, @Param(Constants.WRAPPER)Wrapper<User> wrapper);
+```
+
+##### 测试
+```
+QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+
+Page<User> page = new Page<>(1, 2);
+
+mapper.selectByPage(page, queryWrapper);
+
+log.info("{} {} {}", page.getPages(), page.getSize(), page.getTotal());
+
+List<User> userList = page.getRecords();
+log.info("{}", userList);
+```
