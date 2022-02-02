@@ -279,3 +279,84 @@ log.info("{} {} {}", page.getPages(), page.getSize(), page.getTotal());
 List<User> userList = page.getRecords();
 log.info("{}", userList);
 ```
+
+### 3. ActiveRecord
+
+#### 3.1 使用步骤
++ 继承`Model`
+```java
+@Data
+public class User extends Model<User> {
+
+    @TableId(type = IdType.AUTO)
+    private Long id;            // 主键
+
+    private String name;        // 姓名
+    private Byte age;           // 年龄
+    private String email;       // 邮箱
+    private Long managerId;    // 直属上级ID
+    private Date createTime;   // 创建时间
+}
+```
++ 测试
+```java
+@Slf4j
+@SpringBootTest
+@Rollback
+class UserMapperWithARTest {
+    
+    @Test
+    void insert() {
+        User user = new User();
+        user.setId(System.currentTimeMillis());
+        user.setName("Demo");
+        user.setManagerId(2l);
+
+        boolean flag = user.insert();
+
+        log.info("{}", flag);
+    }
+
+    @Test
+    void selectById() {
+        User user = new User();
+
+        User u = user.selectById(2l);
+
+        log.info("{} {}", user == u, u);
+    }
+
+    @Test
+    void selectById2() {
+        User user = new User();
+        user.setId(2l);
+
+        User u = user.selectById(user);
+        log.info("{} {}", user == u, u);
+    }
+
+    @Test
+    void updateById() {
+        User user = new User();
+        user.setId(2l);
+        user.setEmail("admin@ijunfu.com");
+
+        boolean flag = user.updateById();
+
+        User u = user.selectById(user);
+
+        log.info("{} {}", flag, u);
+    }
+
+    @Test
+    void deleteById() {
+        User user = new User();
+        List<User> all = user.selectAll();
+        log.info("{}", all);
+
+        boolean ret = user.deleteById(1643788030697l);
+
+        log.info("{}", ret);
+    }
+}
+```
