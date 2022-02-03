@@ -1,8 +1,15 @@
 package org.ijunfu.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.ijunfu.entity.Teacher;
+import org.ijunfu.entity.User;
+
+import java.util.List;
 
 /**
  *
@@ -18,4 +25,6 @@ import org.ijunfu.entity.Teacher;
 @Mapper
 public interface TeacherMapper extends BaseMapper<Teacher> {
 
+    @Select("select  * from tb_teacher where deleted = 0 ${ew.customSqlSegment}")
+    List<Teacher> mySelectList(@Param(Constants.WRAPPER)Wrapper<Teacher> userWrapper);
 }

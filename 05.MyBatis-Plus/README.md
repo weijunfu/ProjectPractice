@@ -459,3 +459,37 @@ log.info("{}", list.size());
 
 实际执行SQL为：`SELECT id,name,age,email,manager_id,version,create_time,last_update_time FROM tb_teacher WHERE deleted=0`
 
+### 3. 自定义SQL，不包含逻辑删除限制
+
+#### 3.1 自定义SQL
+```java
+@Mapper
+public interface TeacherMapper extends BaseMapper<Teacher> {
+
+  @Select("select  * from tb_teacher ${ew.customSqlSegment}")
+  List<Teacher> mySelectList(@Param(Constants.WRAPPER)Wrapper<Teacher> userWrapper);
+}
+```
+
+#### 3.2 测试
+```
+List<Teacher> list = teacherMapper.mySelectList(Wrappers.emptyWrapper());
+log.info("{}", list.size());
+```
+
+执行SQL为：`select * from tb_teacher`
+
+#### 3.3 解决这个问题的方式
+
+
+##### 3.3.1 通过Wrapper限制
+```
+ LambdaQueryWrapper<Teacher> lambdaQuery = Wrappers.<Teacher>lambdaQuery();
+lambdaQuery.eq(Teacher::getDeleted, 0);
+List<Teacher> list = teacherMapper.mySelectList(lambdaQuery);
+log.info("{}", list.size());
+```
+
+##### 3.3.2 在自定义SQL中限制
+
+待补充……
