@@ -493,3 +493,72 @@ log.info("{}", list.size());
 ##### 3.3.2 在自定义SQL中限制
 
 待补充……
+
+### 4. 自动填充
+
+#### 4.1 填充字段
+```java
+@Data
+public class Teacher {
+
+    private String id;          // 主键
+    private String name;        // 姓名
+    private Integer age;        // 年龄
+    private String email;       // 邮箱
+    private String managerId;     // 直属上级ID
+    private Integer version;        // 版本
+
+    @TableLogic
+    @TableField(select = false)     //查询时，不显示字段
+    private Integer deleted;        // 是否删除
+
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;       // 创建时间
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date lastUpdateTime;  //最后更新时间
+}
+```
+#### 4.2 填充策略
+```java
+@Component
+public class MyMetaObjectHandler implements MetaObjectHandler {
+
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
+        this.strictInsertFill(metaObject, "lastUpdateTime", Date.class, new Date());
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        this.strictUpdateFill(metaObject, "lastUpdateTime", Date.class, new Date());
+    }
+}
+```
+
+需要注意的是，此时的`createTime`和`lastUpdateTime`都是`Date`类型的，因此此时需要使用`Date.class`。官网给的例子使用的是`LocalDateTime.class`, 执行后填充的为`null`，需特别注意。
+
+
+#### 4.3 填充策略优化
+```java
+@Component
+public class MyMetaObjectHandler implements MetaObjectHandler {
+
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        if(metaObject.hasSetter("createTime"))
+            this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
+
+        if(metaObject.hasSetter("lastUpdateTime"))
+            this.strictInsertFill(metaObject, "lastUpdateTime", Date.class, new Date());
+    }
+
+    @Override
+    public void updateFill(MetaObject metaObject) {
+        if(null == getFieldValByName("", metaObject))
+            if(metaObject.hasSetter("lastUpdateTime"))
+                this.strictUpdateFill(metaObject, "lastUpdateTime", Date.class, new Date());
+    }
+}
+```

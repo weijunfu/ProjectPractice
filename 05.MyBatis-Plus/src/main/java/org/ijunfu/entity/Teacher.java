@@ -1,5 +1,6 @@
 package org.ijunfu.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
@@ -30,6 +31,10 @@ public class Teacher {
     @TableLogic
     @TableField(select = false)     //查询时，不显示字段
     private Integer deleted;        // 是否删除
+
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;       // 创建时间
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date lastUpdateTime;  //最后更新时间
 }
