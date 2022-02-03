@@ -562,3 +562,79 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     }
 }
 ```
+
+### 5. 乐观锁
+
+适用于“读多写少”场景
+
+#### 5.1 标记`@Version`
+```java
+@Data
+public class Teacher {
+
+    private String id;          // 主键
+    private String name;        // 姓名
+    private Integer age;        // 年龄
+    private String email;       // 邮箱
+    private String managerId;     // 直属上级ID
+
+    @Version
+    private Integer version;        // 版本
+
+    @TableLogic
+    @TableField(select = false)     //查询时，不显示字段
+    private Integer deleted;        // 是否删除
+
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;       // 创建时间
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date lastUpdateTime;  //最后更新时间
+}
+```
+
+#### 5.2 添加乐观锁插件
+```java
+@Configuration
+public class MybatisPlusConfig {
+
+    @Bean
+    public MybatisPlusInterceptor paginationInnerInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+
+        // 乐观锁插件
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
+        return interceptor;
+    }
+}
+```
+
+#### 5.3 测试
+
+```java
+@SpringBootTest
+class TeacherMapperWithOptimisticLockerTest {
+
+  @Autowired
+  TeacherMapper teacherMapper;
+
+  @Test
+  void update() {
+    Teacher teacher = new Teacher();
+    teacher.setId("1489179862380625921");
+    teacher.setName("hello");
+
+    Teacher t = teacherMapper.selectById("1489179862380625921");
+
+    teacher.setVersion(t.getVersion());
+
+    teacherMapper.updateById(teacher);
+
+  }
+}
+```
+
+需注意的是，此处必须先查询版本号，再修改，否则修改时则不包含版本。

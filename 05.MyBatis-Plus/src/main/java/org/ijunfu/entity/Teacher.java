@@ -3,6 +3,7 @@ package org.ijunfu.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
 import java.util.Date;
@@ -26,6 +27,8 @@ public class Teacher {
     private Integer age;        // 年龄
     private String email;       // 邮箱
     private String managerId;     // 直属上级ID
+
+    @Version
     private Integer version;        // 版本
 
     @TableLogic
