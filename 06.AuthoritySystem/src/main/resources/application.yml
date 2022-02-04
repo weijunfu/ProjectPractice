@@ -20,6 +20,8 @@ spring:
       data-locations: classpath:db/data.sql
       schema-locations: classpath:db/schema.sql
       mode: always
+  thymeleaf:
+    cache: false
 
 mybatis-plus:
   global-config:
