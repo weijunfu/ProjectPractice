@@ -693,5 +693,27 @@ outagedetectioninterval=2
 
 
 
-### 7. 动态表名
+### 7. 动态表名 & 插件
 
+> `tb_user`表为动态表，表名格式为`tb_user_yyyy`，`yyyy`为四位数的年，例如今年则为`tb_user_2022`
+
+```
+@Bean
+public MybatisPlusInterceptor paginationInnerInterceptor() {
+    MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
+    // 动态表名
+    DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new DynamicTableNameInnerInterceptor();
+
+    dynamicTableNameInnerInterceptor.setTableNameHandler((sql, tableName) -> {
+
+        if(tableName.equals("tb_user"))
+            return tableName + '_' + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy"));
+
+        return tableName;
+    });
+    interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
+
+    return interceptor;
+}
+```
