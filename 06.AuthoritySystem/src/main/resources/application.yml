@@ -32,4 +32,5 @@ logging:
   level:
     root: warn
     org.springframework.boot.autoconfigure.sql.init: trace
+    org.ijunfu.dao: trace
 
