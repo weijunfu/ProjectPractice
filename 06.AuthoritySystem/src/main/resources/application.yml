@@ -8,7 +8,7 @@ spring:
     banner-mode: off
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/authoritySystem
+    url: jdbc:h2:file:~/authoritySystem;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;MODE=MYSQL
     username: sa
     password:
   h2:
@@ -27,6 +27,7 @@ mybatis-plus:
   global-config:
     db-config:
       table-prefix: tb_
+  mapper-locations: mapper/*Mapper.xml
 
 logging:
   level:
