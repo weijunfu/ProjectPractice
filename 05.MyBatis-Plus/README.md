@@ -691,8 +691,6 @@ outagedetection=true
 outagedetectioninterval=2
 ```
 
-
-
 ### 7. 动态表名 & 插件
 
 > `tb_user`表为动态表，表名格式为`tb_user_yyyy`，`yyyy`为四位数的年，例如今年则为`tb_user_2022`
@@ -715,5 +713,81 @@ public MybatisPlusInterceptor paginationInnerInterceptor() {
     interceptor.addInnerInterceptor(dynamicTableNameInnerInterceptor);
 
     return interceptor;
+}
+```
+
+
+### 8. SQL 注入
+
+#### 8.1 自定义方法
+```java
+public class DeleteAllMethod extends AbstractMethod {
+
+    @Override
+    public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
+        // 删除表数据
+        String sql = "delete from " + tableInfo.getTableName();
+
+        // Mapper接口 方法名
+        String methodName = "deleteAll";
+
+        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
+
+        return addDeleteMappedStatement(mapperClass, methodName, sqlSource);
+    }
+}
+```
+
+#### 8.2 自定义SQL注入
+```java
+@Component
+public class MySqlInjector extends DefaultSqlInjector {
+
+    @Override
+    public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
+        List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
+
+        // 添加自定义方法
+        methodList.add(new DeleteAllMethod());
+
+        return methodList;
+    }
+}
+```
+
+#### 8.3 自定义Mapper接口
+```java
+public interface MyMapper<T> extends BaseMapper<T> {
+
+    int deleteAll();
+}
+```
+
+#### 8.4 使用自定义Mapper
+```java
+@Mapper
+public interface TeacherMapper extends MyMapper<Teacher> {
+
+    @Select("select  * from tb_teacher where deleted = 0 ${ew.customSqlSegment}")
+    List<Teacher> mySelectList(@Param(Constants.WRAPPER)Wrapper<Teacher> userWrapper);
+}
+```
+#### 8.5 测试
+
+```java
+@Slf4j
+@SpringBootTest
+class TeacherMapperForInjectorTest {
+
+    @Autowired
+    TeacherMapper teacherMapper;
+
+    @Test
+    void deleteAll(){
+        int count = teacherMapper.deleteAll();
+
+        log.info("delete num: {}", count);
+    }
+
 }
 ```

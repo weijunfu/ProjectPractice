@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface TeacherMapper extends BaseMapper<Teacher> {
+public interface TeacherMapper extends MyMapper<Teacher> {
 
     @Select("select  * from tb_teacher where deleted = 0 ${ew.customSqlSegment}")
     List<Teacher> mySelectList(@Param(Constants.WRAPPER)Wrapper<Teacher> userWrapper);
