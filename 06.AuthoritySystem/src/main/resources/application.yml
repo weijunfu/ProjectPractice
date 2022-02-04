@@ -1,0 +1,7 @@
+server:
+  port: 80
+spring:
+  application:
+    name: 权限管理系统
+  main:
+    banner-mode: off
