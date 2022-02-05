@@ -11,3 +11,5 @@ insert into TB_ROLE_RESOURCE values (2, 1, 2);
 insert into TB_ROLE_RESOURCE values (3, 1, 11);
 insert into TB_ROLE_RESOURCE values (4, 1, 12);
 insert into TB_ROLE_RESOURCE values (5, 1, 21);
+
+insert into TB_ACCOUNT values (1, 1, 'root', 'ce080973368b7094e3f64601da430fde', 'Axxop6OBcHdZvZi6zQ8g4rh69DGVkF9v', '超级管理员', '男', 'ijunfu@qq.com', current_timestamp(), 1, current_timestamp(), 1, 0);

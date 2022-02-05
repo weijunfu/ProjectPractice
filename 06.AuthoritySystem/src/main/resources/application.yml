@@ -19,15 +19,19 @@ spring:
     init:
       data-locations: classpath:db/data.sql
       schema-locations: classpath:db/schema.sql
-      mode: always
+      mode: embedded
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
 
 mybatis-plus:
   global-config:
     db-config:
       table-prefix: tb_
   mapper-locations: mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:

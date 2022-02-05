@@ -1,130 +1,46 @@
 package org.ijunfu.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import org.ijunfu.entity.BaseEntity;
+import lombok.Data;
+
 
 /**
- * <p>
- * 
- * </p>
  *
- * @author ijunfu
- * @since 2022-02-05 02:39
+ * @Title          <h2>实体类</h2>
+ * @Description    <p></p>
+ *
+ * @author         ijunfu
+ * @date           2022-02-05 16:02
+ * @version        1.0.0
+ *
  */
+
+@Data
 @TableName("TB_ACCOUNT")
 public class Account extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
-    private Long accountId;
+    @TableId(value = "ACCOUNT_ID", type = IdType.ASSIGN_ID)
+    private Long accountId;        // 主键
 
-    /**
-     * 角色
-     */
-    private Long roleId;
+    private Long roleId;        // 角色
 
-    /**
-     * 用户名
-     */
-    private String username;
+    private String username;        // 用户名
 
-    /**
-     * 密码
-     */
-    private String password;
+    private String password;        // 密码
 
-    /**
-     * 盐值
-     */
-    private String sal;
+    private String salt;        // 盐值
 
-    /**
-     * 真实姓名
-     */
-    private String realName;
+    private String realName;        // 真实姓名
 
-    /**
-     * 性别
-     */
-    private String sex;
+    private String sex;        // 性别
 
-    /**
-     * 邮箱
-     */
-    private String email;
+    private String email;        // 邮箱
 
-    public Long getAccountId() {
-        return accountId;
-    }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public String getSal() {
-        return sal;
-    }
-
-    public void setSal(String sal) {
-        this.sal = sal;
-    }
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-            "accountId=" + accountId +
-            ", roleId=" + roleId +
-            ", username=" + username +
-            ", password=" + password +
-            ", sal=" + sal +
-            ", realName=" + realName +
-            ", sex=" + sex +
-            ", email=" + email +
-        "}";
-    }
 }

@@ -1,6 +1,7 @@
 package org.ijunfu;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -71,6 +72,14 @@ public class CodeGenerator {
                                 .pathInfo(Collections.singletonMap(OutputFile.mapperXml, root +"/src/main/resources/mapper"))   // Mapper XML输出目录
                         ;
                     })
+                    .templateConfig(builder -> {
+                        builder.entity("/templates/entity.java")
+                                .mapper("/templates/mapper.java")
+                                .service("/templates/service.java")
+                                .serviceImpl("/templates/serviceImpl.java")
+                                .controller("/templates/controller.java")
+                                ;
+                    })
                     .strategyConfig(builder -> {
                         builder.addInclude(tables.split(","))           // 表名
                                 .enableCapitalMode()
@@ -87,6 +96,8 @@ public class CodeGenerator {
                                 .enableMapperAnnotation();
 
                         builder.entityBuilder()
+                                .enableLombok()
+                                .idType(IdType.ASSIGN_ID)
                                 .logicDeleteColumnName("deleted")   // 逻辑删除字段
                                 .addTableFills(new Property("createTime", FieldFill.INSERT))            // 字段填充
                                 .addTableFills(new Property("createdBy", FieldFill.INSERT))             // 字段填充

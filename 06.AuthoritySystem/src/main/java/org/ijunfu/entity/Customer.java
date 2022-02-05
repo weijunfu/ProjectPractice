@@ -1,104 +1,42 @@
 package org.ijunfu.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import org.ijunfu.entity.BaseEntity;
+import lombok.Data;
+
 
 /**
- * <p>
- * 
- * </p>
  *
- * @author ijunfu
- * @since 2022-02-05 02:39
+ * @Title          <h2>实体类</h2>
+ * @Description    <p></p>
+ *
+ * @author         ijunfu
+ * @date           2022-02-05 16:02
+ * @version        1.0.0
+ *
  */
+
+@Data
 @TableName("TB_CUSTOMER")
 public class Customer extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
-    private Long customerId;
+    @TableId(value = "CUSTOMER_ID", type = IdType.ASSIGN_ID)
+    private Long customerId;        // 主键
 
-    /**
-     * 真实姓名
-     */
-    private String realName;
+    private String realName;        // 真实姓名
 
-    /**
-     * 性别
-     */
-    private String sex;
+    private String sex;        // 性别
 
-    /**
-     * 邮箱
-     */
-    private String email;
+    private String email;        // 邮箱
 
-    /**
-     * 手机号码
-     */
-    private String phone;
+    private String phone;        // 手机号码
 
-    /**
-     * 地址
-     */
-    private String address;
+    private String address;        // 地址
 
-    public Long getCustomerId() {
-        return customerId;
-    }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-            "customerId=" + customerId +
-            ", realName=" + realName +
-            ", sex=" + sex +
-            ", email=" + email +
-            ", phone=" + phone +
-            ", address=" + address +
-        "}";
-    }
 }

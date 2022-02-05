@@ -1,6 +1,3 @@
-ALTER TABLE TB_ROLE_RESOURCE DROP CONSTRAINT fk_rr_role;
-ALTER TABLE TB_ROLE_RESOURCE DROP CONSTRAINT fk_rr_resource;
-
 DROP TABLE IF EXISTS TB_RESOURCE;
 CREATE TABLE TB_RESOURCE(
     resource_id bigint(0) primary key comment '主键',
@@ -40,7 +37,7 @@ CREATE TABLE TB_ACCOUNT(
     role_id bigint(0) comment '角色',
     username varchar(20) comment '用户名',
     password varchar(32) comment '密码',
-    sal varchar(32) comment '盐值',
+    salt varchar(32) comment '盐值',
     real_name varchar(50) comment '真实姓名',
     sex char(1) comment '性别',
     email varchar(100) comment '邮箱',
