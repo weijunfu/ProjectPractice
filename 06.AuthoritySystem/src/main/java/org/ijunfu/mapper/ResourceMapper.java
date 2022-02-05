@@ -1,8 +1,13 @@
 package org.ijunfu.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import org.apache.ibatis.annotations.Param;
 import org.ijunfu.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  *
@@ -17,4 +22,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ResourceMapper extends BaseMapper<Resource> {
 
+    List<Resource> listResource(@Param(Constants.WRAPPER) Wrapper<Resource> wrapper);
 }

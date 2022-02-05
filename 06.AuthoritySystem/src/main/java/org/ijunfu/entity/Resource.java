@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 
@@ -39,5 +41,5 @@ public class Resource implements Serializable {
 
     private Integer sort;        // 排序编号
 
-
+    private List<Resource> childs;
 }

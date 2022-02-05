@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ijunfu.mapper.ResourceMapper">
 
+    <select id="listResource" resultType="org.ijunfu.entity.Resource">
+        select
+            *
+        from tb_resource res inner join tb_role_resource rr on
+        res.resource_id = rr.resource_id
+        ${ew.customSqlSegment}
+    </select>
 </mapper>

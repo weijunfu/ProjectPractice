@@ -4,17 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.ijunfu.dto.AccountDTO;
 import org.ijunfu.dto.LoginDTO;
 import org.ijunfu.entity.Account;
+import org.ijunfu.entity.Resource;
 import org.ijunfu.exception.service.ServiceException;
 import org.ijunfu.exception.service.UserNotFoundException;
 import org.ijunfu.exception.service.UsernameOrPasswordException;
 import org.ijunfu.service.IAccountService;
+import org.ijunfu.service.IResourceService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -34,6 +38,9 @@ public class AuthController {
 
     @Autowired
     private IAccountService accountService;
+
+    @Autowired
+    private IResourceService resourceService;
 
     /**
      *
@@ -59,13 +66,17 @@ public class AuthController {
      * @author      weijunfu<ijunfu@qq.com>
      * @date        2022/02/05 17:35
      * @version     1.0.0
-     * @param 		loginDTO
+     * @param
      * @param 		session
      * @param 		redirectAttributes
      * @Return      java.lang.String
      */
     @PostMapping("login")
-    public String login(String username, String password, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String login(String username
+                        , String password
+                        , HttpSession session
+                        , RedirectAttributes redirectAttributes
+                        , Model model) {
 
         String path = "";
 
@@ -81,6 +92,9 @@ public class AuthController {
             BeanUtils.copyProperties(login, dto);
 
             session.setAttribute("account", dto);
+
+            List<Resource> resourceList = resourceService.listBy(dto.getRoleId());
+            model.addAttribute("resources", resourceList);
 
             path = "main";
         } catch (ServiceException e) {

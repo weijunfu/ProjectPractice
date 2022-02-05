@@ -3,6 +3,8 @@ package org.ijunfu.service;
 import org.ijunfu.entity.Resource;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  *
  * @Title          <h2>业务类</h2>
@@ -14,5 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *
  */
 public interface IResourceService extends IService<Resource> {
+
+    List<Resource> listBy(Long roleId);
 
 }
