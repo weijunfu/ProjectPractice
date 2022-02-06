@@ -64,4 +64,3 @@ CREATE TABLE TB_CUSTOMER(
   last_updated_by bigint(0) not null comment '最后修改人',
   deleted tinyint(0) default 0 comment '逻辑删除标识：0 未删除 1 已删除'
 );
-

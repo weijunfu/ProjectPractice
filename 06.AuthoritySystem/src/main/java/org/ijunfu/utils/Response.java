@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class Response<T> {
 
-    private Integer status;
+    private Integer code;
     private String  msg;
     private T data;
 
@@ -26,7 +26,7 @@ public class Response<T> {
 
     public static <T> Response ok(T data) {
         Response response = new Response();
-        response.setStatus(ResponseStatus.SUCCESS.code());
+        response.setCode(ResponseStatus.SUCCESS.code());
         response.setMsg("成功");
         response.setData(data);
         return response;
@@ -34,7 +34,7 @@ public class Response<T> {
 
     public static Response error(String msg) {
         Response response = new Response();
-        response.setStatus(ResponseStatus.FAIL.code());
+        response.setCode(ResponseStatus.FAIL.code());
         response.setMsg(msg);
         return response;
     }
