@@ -1,6 +1,7 @@
 
 function showTab(url, name, id) {
-    console.log(url, name, id)
+    // console.log(url, name, id)
+
     let len = $('li[lay-id='+id+']').length;
     let element = layui.element;
 
