@@ -65,7 +65,7 @@ table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 
 
     switch (event) {
         case 'detail':
-            layer.msg('查看');
+            openLayer("/customer/toDetail/"+customerId, "查看客户详情");
             break;
         case 'edit':    // 编辑
             openLayer("/customer/toUpdate/"+customerId, "修改客户");

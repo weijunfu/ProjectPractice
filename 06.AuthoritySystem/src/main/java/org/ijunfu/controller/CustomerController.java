@@ -139,4 +139,23 @@ public class CustomerController {
         boolean success = customerService.removeById(id);
         return Result.buildResponse(success);
     }
+
+    /**
+     *
+     * @Title       toDetailPage
+     * @Description 跳转至详情页
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 18:39
+     * @version     1.0.0
+     * @param 		id
+     * @param 		model
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toDetail/{id}")
+    public String toDetailPage(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getById(id);
+        model.addAttribute("customer", customer);
+        return "customer/detail";
+    }
 }
