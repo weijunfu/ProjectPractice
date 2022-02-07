@@ -48,6 +48,39 @@ function to_add() {
     mySubmit('addSubmit', 'POST');
 }
 
+//触发事件
+//工具条事件
+table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+
+    /**
+     * data 获得当前行数据
+     * event 获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+     * tr获得当前行 tr 的 DOM 对象（如果有的话）
+     */
+    let {data, event, tr} = obj;
+
+    console.log(obj)
+
+    let { customerId } = data
+
+    switch (event) {
+        case 'detail':
+            layer.msg('查看');
+            break;
+        case 'edit':    // 编辑
+            openLayer("/customer/toUpdate/"+customerId, "修改客户");
+
+            layui.form.render();
+
+            mySubmit('updateSubmit', 'PUT')
+            break;
+        case 'del':
+            layer.msg('删除');
+            break;
+    }
+});
+
+
 // 公共弹出层
 function openLayer(url, title) {
     $.ajaxSettings.async = false;

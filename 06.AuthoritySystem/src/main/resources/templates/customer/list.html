@@ -31,18 +31,25 @@
 
 	</div>
 
+
 	<button class="layui-btn" onclick="to_add()">增加</button>
 
-	<table id="customerList"></table>
+	<!-- 表格 -->
+	<table id="customerList" lay-filter="test"></table>
+
+	<!-- 工具栏模板	-->
+	<script type="text/html" id="barDemo">
+		<div class="layui-btn-container">
+			<button class="layui-btn layui-btn-sm" lay-event="detail">查看</button>
+			<button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="edit">编辑</button>
+			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+		</div>
+	</script>
 	
 	<script th:src="@{/webjars/jquery/jquery.js}"></script>
 	<script th:src="@{/webjars/layui/layui.js}"></script>
 	<script th:src="@{/js/customer/list.js}"></script>
 
-	<script type="text/html" id="barDemo">
-  		<a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
- 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-	</script>
+
 </body>
 </html>

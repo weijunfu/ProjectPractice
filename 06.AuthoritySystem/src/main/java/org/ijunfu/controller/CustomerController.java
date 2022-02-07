@@ -11,6 +11,7 @@ import org.ijunfu.utils.Response;
 import org.ijunfu.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -107,6 +108,37 @@ public class CustomerController {
         customer.setLastUpdatedBy(account.getAccountId());
 
         boolean success = customerService.save(customer);
+
+        return Result.buildResponse(success);
+    }
+
+    /**
+     *
+     * @Title       toUpdatePage
+     * @Description 跳转至客户修改界面
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 12:12
+     * @version     1.0.0
+     * @param 		id
+     * @param 		model
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toUpdate/{id}")
+    public String toUpdatePage(@PathVariable Long id, Model model){
+        Customer customer = customerService.getById(id);
+        model.addAttribute("customer", customer);
+        return "customer/update";
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Response update(@RequestBody Customer customer, HttpSession session) {
+        AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
+
+        customer.setLastUpdatedBy(accountDTO.getAccountId());
+
+        boolean success = customerService.updateById(customer);
 
         return Result.buildResponse(success);
     }

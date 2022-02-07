@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.ijunfu.entity.BaseEntity;
 import lombok.Data;
 
@@ -25,6 +28,7 @@ public class Customer extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "CUSTOMER_ID", type = IdType.ASSIGN_ID)
     private Long customerId;        // 主键
 
