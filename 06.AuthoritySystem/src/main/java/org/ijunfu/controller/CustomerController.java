@@ -101,12 +101,6 @@ public class CustomerController {
     @PostMapping
     @ResponseBody
     public Response add(@RequestBody Customer customer, HttpSession session) {
-
-        AccountDTO account = (AccountDTO) session.getAttribute("account");
-
-        customer.setCreatedBy(account.getAccountId());
-        customer.setLastUpdatedBy(account.getAccountId());
-
         boolean success = customerService.save(customer);
 
         return Result.buildResponse(success);
@@ -134,10 +128,6 @@ public class CustomerController {
     @PutMapping
     @ResponseBody
     public Response update(@RequestBody Customer customer, HttpSession session) {
-        AccountDTO accountDTO = (AccountDTO) session.getAttribute("account");
-
-        customer.setLastUpdatedBy(accountDTO.getAccountId());
-
         boolean success = customerService.updateById(customer);
 
         return Result.buildResponse(success);
