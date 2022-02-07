@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.ijunfu.dto.AccountDTO;
 import org.ijunfu.entity.Account;
 import org.ijunfu.entity.Role;
 import org.ijunfu.service.IAccountService;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
@@ -169,7 +171,10 @@ public class AccountController {
      */
     @DeleteMapping("/{id}")
     @ResponseBody
-    public Response delete(@PathVariable Long id){
+    public Response delete(@PathVariable Long id, HttpSession session){
+
+        AccountDTO account = (AccountDTO) session.getAttribute("account");
+        if(id == account.getAccountId()) return Response.error("不能删除自己的账号哦^_^");
 
         boolean success = accountService.removeById(id);
 
