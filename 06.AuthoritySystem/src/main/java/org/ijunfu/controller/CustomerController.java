@@ -132,4 +132,11 @@ public class CustomerController {
 
         return Result.buildResponse(success);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public Response delete(@PathVariable Long id) {
+        boolean success = customerService.removeById(id);
+        return Result.buildResponse(success);
+    }
 }
