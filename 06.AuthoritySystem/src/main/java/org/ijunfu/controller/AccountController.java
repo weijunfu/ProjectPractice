@@ -128,6 +128,17 @@ public class AccountController {
         return "account/add";
     }
 
+    /**
+     *
+     * @Title       add
+     * @Description 新增账号
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 00:58
+     * @version     1.0.0
+     * @param 		account
+     * @Return      org.ijunfu.utils.Response
+     */
     @PostMapping
     @ResponseBody
     public Response add(@RequestBody Account account) {
@@ -145,6 +156,17 @@ public class AccountController {
         return Result.buildResponse(success);
     }
 
+    /**
+     *
+     * @Title       delete
+     * @Description 删除账号
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 00:58
+     * @version     1.0.0
+     * @param 		id
+     * @Return      org.ijunfu.utils.Response
+     */
     @DeleteMapping("/{id}")
     @ResponseBody
     public Response delete(@PathVariable Long id){
@@ -152,5 +174,26 @@ public class AccountController {
         boolean success = accountService.removeById(id);
 
         return Result.buildResponse(success);
+    }
+
+    /**
+     *
+     * @Title       toDetailPage
+     * @Description 跳转至详情页
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 00:58
+     * @version     1.0.0
+     * @param 		id
+     * @param 		model
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toDetail/{id}")
+    public String toDetailPage(@PathVariable Long id, Model model) {
+        Account account = accountService.selectAccountById(id);
+
+        model.addAttribute("account", account);
+
+        return "account/detail";
     }
 }

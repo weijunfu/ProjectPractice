@@ -57,4 +57,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     public IPage<Account> myPage(IPage<Account> page, Wrapper<Account> wrapper) {
         return baseMapper.myPage(page, wrapper);
     }
+
+    @Override
+    public Account selectAccountById(Long id) {
+        return baseMapper.selectAccountById(id);
+    }
 }
