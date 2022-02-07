@@ -75,10 +75,10 @@ table.on('tool(accountList)', function(obj){ //注：tool 是工具条事件名�
 
     switch (event) {
         case 'detail':
-            openLayer("/account/toDetail/"+accountId, "查看客户详情");
+            openLayer("/account/toDetail/"+accountId, "查看账号详情");
             break;
         case 'edit':    // 编辑
-            openLayer("/account/toUpdate/"+accountId, "修改客户");
+            openLayer("/account/toUpdate/"+accountId, "修改账号");
 
             layui.form.render();
 

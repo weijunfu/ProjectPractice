@@ -196,4 +196,51 @@ public class AccountController {
 
         return "account/detail";
     }
+
+    /**
+     *
+     * @Title       toUpdatePage
+     * @Description 打开修改页
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 01:27
+     * @version     1.0.0
+     * @param 		id
+     * @param 		model
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toUpdate/{id}")
+    public String toUpdatePage(@PathVariable Long id, Model model) {
+        Account account = accountService.selectAccountById(id);
+
+        List<Role> roles =roleService
+                .lambdaQuery()
+                .orderByAsc(Role::getRoleId)
+                .list();
+        ;
+
+        model.addAttribute("account", account);
+        model.addAttribute("roles", roles);
+
+        return "account/update";
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Response update(@RequestBody Account account){
+
+        String password = account.getPassword();
+        if(StringUtils.isNotBlank(password)) {
+            String salt = StringHelper.random(32);
+            password = StringHelper.encode(password, salt);
+            account.setSalt(salt);
+            account.setPassword(password);
+        } else {
+            account.setPassword(null);
+        }
+
+        boolean success = accountService.updateById(account);
+
+        return Result.buildResponse(success);
+    }
 }
