@@ -47,6 +47,6 @@ public interface AccountMapper extends BaseMapper<Account> {
      * @param 		id
      * @Return      org.ijunfu.entity.Account
      */
-    @Select("select acc.*, r.role_name from tb_account acc inner join tb_role r on acc.role_id = r.role_id where acc.account_id=#{id}")
+    @Select("select acc.*, r.role_name from tb_account acc inner join tb_role r on acc.role_id = r.role_id where acc.account_id=#{id} and acc.deleted=0")
     Account selectAccountById(@Param("id") Long id);
 }

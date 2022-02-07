@@ -11,7 +11,7 @@
 			<div class="layui-input-block">
 				<input type="hidden" name="accountId" th:value="${account.accountId}">
 				<input type="text" name="username" placeholder="请输入用户名"
-					   autocomplete="off" class="layui-input" lay-verify="required" maxlength="20" th:value="${account.username}">
+					   autocomplete="off" class="layui-input" lay-verify="required|username" maxlength="20" th:value="${account.username}">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -61,5 +61,7 @@
 			</div>
 		</div>
 	</form>
+
+	<script th:src="@{/js/account/valid.js}"></script>
 </body>
 </html>

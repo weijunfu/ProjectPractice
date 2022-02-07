@@ -243,4 +243,19 @@ public class AccountController {
 
         return Result.buildResponse(success);
     }
+
+    @GetMapping({"/{username}", "/{username}/{accountId}"})
+    @ResponseBody
+    public Response validName(
+            @PathVariable String username,
+            @PathVariable(required = false) Long accountId
+    ) {
+        Long count = accountService
+                .lambdaQuery()
+                .eq(Account::getUsername, username)
+                .ne(null != accountId, Account::getAccountId, accountId)
+                .count();
+
+        return Response.ok(count);
+    }
 }

@@ -31,3 +31,14 @@ public class Customer extends BaseEntity {
 }
 ```
 
+### 3.3 `lay-verify`：自定义校验规则不生效的问题，书写格式错误
+
+错误：
+```
+lay-verify="required | username"
+```
+
+正确：
+```
+lay-verify="required|username"
+```
