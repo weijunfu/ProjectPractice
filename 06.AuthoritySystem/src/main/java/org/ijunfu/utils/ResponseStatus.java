@@ -12,8 +12,8 @@ package org.ijunfu.utils;
  */
 
 public enum ResponseStatus {
-    SUCCESS(200),       // 成功
-    FAIL(400),          // 失败
+    SUCCESS(0),       // 成功
+    FAIL(-1),          // 失败
     UNAUTHORIZED(401),  // 未认证/认证失败
     NOT_FOUND(404),     // 接口（资源）不存在
     SERVER_ERROR(500)   // 服务器错误

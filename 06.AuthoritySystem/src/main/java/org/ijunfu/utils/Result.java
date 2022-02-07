@@ -35,4 +35,23 @@ public class Result {
 
         return Response.ok(map);
     }
+
+    /**
+     *
+     * @Title       buildResponse
+     * @Description 构建成功或失败的响应信息
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 11:10
+     * @version     1.0.0
+     * @param 		success
+     * @Return      org.ijunfu.utils.Response<java.lang.Object>
+     */
+    public static Response<Object> buildResponse(Boolean success) {
+        if(success) {
+            return Response.ok();
+        }
+
+        return Response.error("操作失败");
+    }
 }

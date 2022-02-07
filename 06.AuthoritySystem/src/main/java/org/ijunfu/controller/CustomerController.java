@@ -4,17 +4,16 @@ package org.ijunfu.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.ijunfu.dto.AccountDTO;
 import org.ijunfu.entity.Customer;
 import org.ijunfu.service.ICustomerService;
 import org.ijunfu.utils.Response;
 import org.ijunfu.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -46,7 +45,7 @@ public class CustomerController {
      * @Return      java.lang.String
      */
     @GetMapping("/toList")
-    public String toList() {
+    public String toListPage() {
         return "customer/list";
     }
 
@@ -69,5 +68,46 @@ public class CustomerController {
         customerService.page(customerPage, lambdaQueryWrapper);
 
         return Result.buildPage(customerPage);
+    }
+
+    /**
+     *
+     * @Title       toAddPage
+     * @Description 跳转至客户添加页面
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 11:03
+     * @version     1.0.0
+     * @param
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toAdd")
+    public String toAddPage(){
+        return "customer/add";
+    }
+
+    /**
+     *
+     * @Title       add
+     * @Description 新增客户
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 11:10
+     * @version     1.0.0
+     * @param 		customer
+     * @Return      org.ijunfu.utils.Response
+     */
+    @PostMapping
+    @ResponseBody
+    public Response add(@RequestBody Customer customer, HttpSession session) {
+
+        AccountDTO account = (AccountDTO) session.getAttribute("account");
+
+        customer.setCreatedBy(account.getAccountId());
+        customer.setLastUpdatedBy(account.getAccountId());
+
+        boolean success = customerService.save(customer);
+
+        return Result.buildResponse(success);
     }
 }
