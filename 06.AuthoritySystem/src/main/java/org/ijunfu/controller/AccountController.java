@@ -144,4 +144,13 @@ public class AccountController {
 
         return Result.buildResponse(success);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public Response delete(@PathVariable Long id){
+
+        boolean success = accountService.removeById(id);
+
+        return Result.buildResponse(success);
+    }
 }
