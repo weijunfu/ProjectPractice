@@ -47,3 +47,13 @@ function query() {
         }
     })
 }
+
+// 新增客户
+function to_add() {
+
+    openLayer('/account/toAdd', '新增账号');
+
+    layui.form.render();
+
+    mySubmit('addSubmit', 'POST');
+}

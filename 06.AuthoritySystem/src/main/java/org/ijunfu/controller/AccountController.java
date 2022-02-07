@@ -7,17 +7,19 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ijunfu.entity.Account;
+import org.ijunfu.entity.Role;
 import org.ijunfu.service.IAccountService;
+import org.ijunfu.service.IRoleService;
 import org.ijunfu.utils.Response;
 import org.ijunfu.utils.Result;
+import org.ijunfu.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -35,6 +37,9 @@ public class AccountController {
 
     @Autowired
     private IAccountService accountService;
+
+    @Autowired
+    private IRoleService roleService;
 
     /**
      *
@@ -96,5 +101,47 @@ public class AccountController {
         IPage<Account> myPage = accountService.myPage(new Page<>(page, limit), wrapper);
 
         return Result.buildPage(myPage);
+    }
+
+    /**
+     *
+     * @Title       toAddPage
+     * @Description 跳转至账号添加页面
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 00:03
+     * @version     1.0.0
+     * @param
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toAdd")
+    public String toAddPage(Model model) {
+
+        List<Role> roles =roleService
+                .lambdaQuery()
+                .orderByAsc(Role::getRoleId)
+                .list();
+        ;
+
+        model.addAttribute("roles", roles);
+
+        return "account/add";
+    }
+
+    @PostMapping
+    @ResponseBody
+    public Response add(@RequestBody Account account) {
+
+        String password = account.getPassword();
+
+        // 盐值
+        String salt = StringHelper.random(32);
+
+        account.setSalt(salt);
+        account.setPassword(StringHelper.encode(password, salt));   // 加密
+
+        boolean success = accountService.save(account);
+
+        return Result.buildResponse(success);
     }
 }

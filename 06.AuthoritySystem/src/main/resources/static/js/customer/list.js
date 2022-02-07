@@ -41,7 +41,7 @@ function query() {
 // 新增客户
 function to_add() {
 
-    openLayer('/customer/toAdd', '客户');
+    openLayer('/customer/toAdd', '新增客户');
 
     layui.form.render();
 
