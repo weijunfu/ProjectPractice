@@ -1,6 +1,8 @@
 package org.ijunfu.mapper;
 
 import cn.hutool.core.util.RandomUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.ijunfu.entity.Account;
 import org.ijunfu.entity.Role;
@@ -85,5 +87,12 @@ class AccountMapperTest {
 
         String encode = StringHelper.encode(password, salt);
         System.out.println(encode);
+    }
+
+    @Test
+    void myPage() {
+        Page<Account> page = new Page<>(1, 10);
+        accountMapper.myPage(page, Wrappers.emptyWrapper());
+
     }
 }

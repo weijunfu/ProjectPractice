@@ -1,5 +1,7 @@
 package org.ijunfu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.ijunfu.dto.LoginDTO;
 import org.ijunfu.entity.Account;
@@ -49,5 +51,10 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         }
 
         return account;
+    }
+
+    @Override
+    public IPage<Account> myPage(IPage<Account> page, Wrapper<Account> wrapper) {
+        return baseMapper.myPage(page, wrapper);
     }
 }

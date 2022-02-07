@@ -1,5 +1,9 @@
 package org.ijunfu.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import org.apache.ibatis.annotations.Param;
 import org.ijunfu.dto.LoginDTO;
 import org.ijunfu.entity.Account;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,5 +22,30 @@ import org.ijunfu.exception.service.UsernameOrPasswordException;
  */
 public interface IAccountService extends IService<Account> {
 
+    /**
+     *
+     * @Title       login
+     * @Description 用户登录
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 21:31
+     * @version     1.0.0
+     * @param 		loginDTO
+     * @Return      org.ijunfu.entity.Account
+     */
     Account login(LoginDTO loginDTO) throws UserNotFoundException, UsernameOrPasswordException;
+
+    /**
+     *
+     * @Title       myPage
+     * @Description 分页查询账户 & 角色
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/07 21:31
+     * @version     1.0.0
+     * @param 		page
+     * @param 		wrapper
+     * @Return      com.baomidou.mybatisplus.core.metadata.IPage<org.ijunfu.entity.Account>
+     */
+    IPage<Account> myPage(IPage<Account> page, Wrapper<Account> wrapper);
 }
