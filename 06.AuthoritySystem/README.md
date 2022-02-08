@@ -42,3 +42,15 @@ lay-verify="required | username"
 ```
 lay-verify="required|username"
 ```
+
+### 3.4 接口数据json乱码
+
+解决：使用`produces`属性添加内容格式
+```
+@GetMapping(value = "/list", produces = "application/json; charset=utf-8")
+@ResponseBody
+public Response list(
+
+    return null;
+}
+```
