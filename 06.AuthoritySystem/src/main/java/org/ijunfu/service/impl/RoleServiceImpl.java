@@ -94,4 +94,22 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
         return true;
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteRole(Long roleId) {
+
+        try {
+            removeById(roleId);
+
+            // 删除已有资源
+            rrMapper.delete(Wrappers.<RoleResource>lambdaQuery().eq(RoleResource::getRoleId, roleId));
+        } catch (Exception e) {
+            log.error("{}", e);
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
 }

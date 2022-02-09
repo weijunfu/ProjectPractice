@@ -18,4 +18,6 @@ public interface IRoleService extends IService<Role> {
     boolean saveRole(Role role);
 
     boolean updateRole(Role role);
+
+    boolean deleteRole(Long roleId);
 }

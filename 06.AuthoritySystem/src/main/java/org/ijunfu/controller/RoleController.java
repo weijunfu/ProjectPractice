@@ -130,4 +130,11 @@ public class RoleController {
 
         return Result.buildResponse(success);
     }
+
+    @DeleteMapping("/{roleId}")
+    @ResponseBody
+    public Response delete(@PathVariable Long roleId) {
+        boolean success = roleService.deleteRole(roleId);
+        return Result.buildResponse(success);
+    }
 }

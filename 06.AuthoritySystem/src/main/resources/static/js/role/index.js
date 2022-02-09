@@ -90,7 +90,7 @@ table.on('tool(roleList)', function(obj){ //注：tool 是工具条事件名，t
             break;
         case 'del':
 
-            myDelete('/customer/' + customerId);
+            myDelete('/role/' + roleId);
 
             break;
     }
