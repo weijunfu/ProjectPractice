@@ -38,11 +38,15 @@ function openLayer(url, title) {
 }
 
 // 表单提交
-function mySubmit(filter, type) {
+function mySubmit(filter, type, resultHandler) {
     layui.form.on('submit('+filter+')', function (data){
-        console.log(data.elem);         // 被执行事件的元素DOM对象，一般为button对象
-        console.log(data.form);         // 被执行提交的form对象，一般存在form时才会返回
-        console.log(data.field);        // 当前容器的全部表单字段，
+        // console.log(data.elem);         // 被执行事件的元素DOM对象，一般为button对象
+        // console.log(data.form);         // 被执行提交的form对象，一般存在form时才会返回
+        // console.log(data.field);        // 当前容器的全部表单字段，
+
+        if(typeof resultHandler != 'undefined') {
+            resultHandler(data.field)
+        }
 
         $.ajax({
             url: data.form.action,

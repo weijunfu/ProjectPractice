@@ -1,6 +1,7 @@
 package org.ijunfu.service;
 
 import org.ijunfu.entity.Resource;
+import org.ijunfu.vo.Tree;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,5 +30,11 @@ class IResourceServiceTest {
     void list() {
         List<Resource> list = resourceService.listBy(1l);
         System.out.println(list);
+    }
+
+    @Test
+    void list2() {
+        List<Tree> trees = resourceService.resourcesList();
+        System.out.println(trees);
     }
 }

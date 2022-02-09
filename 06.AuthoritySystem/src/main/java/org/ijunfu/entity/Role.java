@@ -1,9 +1,12 @@
 package org.ijunfu.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
+
 import org.ijunfu.entity.BaseEntity;
 import lombok.Data;
 
@@ -32,5 +35,6 @@ public class Role extends BaseEntity {
 
     private String remarks;        // 备注
 
-
+    @TableField(exist = false)
+    private List<Long> resourceIds;
 }

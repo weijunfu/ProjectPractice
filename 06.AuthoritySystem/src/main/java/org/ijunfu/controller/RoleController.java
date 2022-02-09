@@ -4,15 +4,17 @@ package org.ijunfu.controller;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.ijunfu.entity.Role;
+import org.ijunfu.service.IResourceService;
 import org.ijunfu.service.IRoleService;
 import org.ijunfu.utils.Response;
 import org.ijunfu.utils.Result;
+import org.ijunfu.vo.Tree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -32,6 +34,9 @@ public class RoleController {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private IResourceService resourceService;
+
     /**
      *
      * @Title       toListPage
@@ -49,6 +54,19 @@ public class RoleController {
         return "role/list";
     }
 
+    /**
+     *
+     * @Title       list
+     * @Description 查询 角色列表
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 13:56
+     * @version     1.0.0
+     * @param 		roleName
+     * @param 		page
+     * @param 		limit
+     * @Return      org.ijunfu.utils.Response
+     */
     @GetMapping(value = "/list", produces = "application/json; charset=utf-8")
     @ResponseBody
     public Response list(
@@ -63,5 +81,34 @@ public class RoleController {
                                 .page(new Page<>(page, limit));
 
         return Result.buildPage(myPage);
+    }
+
+    /**
+     *
+     * @Title       toAddPage
+     * @Description 跳转至添加页面
+     *
+     * @author      weijunfu<ijunfu@qq.com>
+     * @date        2022/02/08 13:58
+     * @version     1.0.0
+     * @param
+     * @Return      java.lang.String
+     */
+    @GetMapping("/toAdd")
+    public String toAddPage() {
+        return "role/add";
+    }
+
+    @GetMapping(value = "/resources", produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Response<List<Tree>> resourcesList(){
+        return Response.ok(resourceService.resourcesList());
+    }
+
+    @PostMapping
+    @ResponseBody
+    public Response add(@RequestBody Role role) {
+        boolean success = roleService.saveRole(role);
+        return Result.buildResponse(success);
     }
 }

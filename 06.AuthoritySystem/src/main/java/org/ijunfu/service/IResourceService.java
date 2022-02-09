@@ -2,6 +2,7 @@ package org.ijunfu.service;
 
 import org.ijunfu.entity.Resource;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.ijunfu.vo.Tree;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface IResourceService extends IService<Resource> {
 
     List<Resource> listBy(Long roleId);
 
+    List<Tree> resourcesList();
 }

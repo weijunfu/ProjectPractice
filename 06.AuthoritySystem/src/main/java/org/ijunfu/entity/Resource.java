@@ -1,6 +1,7 @@
 package org.ijunfu.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -41,5 +42,6 @@ public class Resource implements Serializable {
 
     private Integer sort;        // 排序编号
 
+    @TableField(exist = false)
     private List<Resource> childs;
 }

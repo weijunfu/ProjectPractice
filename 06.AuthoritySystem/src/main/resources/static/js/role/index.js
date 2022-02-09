@@ -35,3 +35,46 @@ function query() {
         }
     })
 }
+
+// 新增客户
+function to_add() {
+
+    openLayer('/role/toAdd', '新增角色');
+
+    $.ajax({
+        url:'/role/resources',
+        async: false,
+        type: 'GET',
+        success: (res)=>{
+            console.log('resources', res.data)
+            if(res.code == 0) {
+                layui.tree.render({
+                    elem: '#resource'  //绑定元素
+                    ,data: res.data     // 数据
+                    ,id: 'resource'
+                    ,showCheckbox: true     // 显示复选框
+                });
+            }
+        }
+
+    })
+
+
+    mySubmit('addSubmit', 'POST', addIds);
+}
+
+let addIds = function (field){
+    let checkedData = layui.tree.getChecked('resource');
+
+    field.resourceIds = getIds(checkedData, []);
+}
+
+function getIds(checkedData, arr) {
+    for(let i in checkedData) {
+        arr.push(checkedData[i].id);
+
+        arr = getIds(checkedData[i].children, arr);
+    }
+
+    return arr;
+}
