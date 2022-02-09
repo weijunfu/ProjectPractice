@@ -3,7 +3,9 @@ package org.ijunfu.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.ijunfu.entity.Account;
 import org.ijunfu.entity.Role;
+import org.ijunfu.service.IAccountService;
 import org.ijunfu.service.IResourceService;
 import org.ijunfu.service.IRoleService;
 import org.ijunfu.utils.Response;
@@ -37,6 +39,9 @@ public class RoleController {
 
     @Autowired
     private IResourceService resourceService;
+
+    @Autowired
+    private IAccountService accountService;
 
     /**
      *
@@ -134,6 +139,9 @@ public class RoleController {
     @DeleteMapping("/{roleId}")
     @ResponseBody
     public Response delete(@PathVariable Long roleId) {
+        Long accountCount = accountService.<Account>lambdaQuery().eq(Account::getRoleId, roleId).count();
+        if(accountCount > 0) return Response.error("该角色正在被使用！！！");
+
         boolean success = roleService.deleteRole(roleId);
         return Result.buildResponse(success);
     }
