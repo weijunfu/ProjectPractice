@@ -68,3 +68,24 @@ function mySubmit(filter, type, resultHandler) {
         return false;       // 阻止跳转
     });
 }
+
+// 通用的Tree方法
+function showTree(url, id) {
+    $.ajax({
+        url:url,
+        async: false,
+        type: 'GET',
+        success: (res)=>{
+            console.log('resources', res.data)
+            if(res.code == 0) {
+                layui.tree.render({
+                    elem: '#' +id  //绑定元素
+                    ,data: res.data     // 数据
+                    ,id: id
+                    ,showCheckbox: true     // 显示复选框
+                });
+            }
+        }
+
+    })
+}

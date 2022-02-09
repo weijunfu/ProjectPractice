@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.ijunfu.entity.BaseEntity;
 import lombok.Data;
 
@@ -28,6 +30,7 @@ public class Role extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "ROLE_ID", type = IdType.ASSIGN_ID)
     private Long roleId;        // 主键
 

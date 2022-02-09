@@ -20,5 +20,5 @@ public interface IResourceService extends IService<Resource> {
 
     List<Resource> listBy(Long roleId);
 
-    List<Tree> resourcesList();
+    List<Tree> resourcesList(Long roleId);
 }

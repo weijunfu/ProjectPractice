@@ -9,4 +9,14 @@
         res.resource_id = rr.resource_id
         ${ew.customSqlSegment}
     </select>
+
+    <select id="listResourceByRoleId" resultType="org.ijunfu.vo.Tree">
+        select
+            re.resource_id id,
+            re.resource_name title,
+            re.url,
+            casewhen(rr.resource_id is null, false, true) checked
+        from tb_resource re left join tb_role_resource rr on re.resource_id = rr.resource_id and rr.role_id=#{roleId}
+        ${ew.customSqlSegment}
+    </select>
 </mapper>

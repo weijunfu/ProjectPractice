@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.ijunfu.entity.Resource;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.ijunfu.vo.Tree;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ import java.util.List;
 public interface ResourceMapper extends BaseMapper<Resource> {
 
     List<Resource> listResource(@Param(Constants.WRAPPER) Wrapper<Resource> wrapper);
+
+    List<Tree> listResourceByRoleId(@Param(Constants.WRAPPER) Wrapper<Resource> wrapper, @Param("roleId") Long roleId);
 }

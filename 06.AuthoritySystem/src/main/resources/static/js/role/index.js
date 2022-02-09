@@ -41,24 +41,7 @@ function to_add() {
 
     openLayer('/role/toAdd', '新增角色');
 
-    $.ajax({
-        url:'/role/resources',
-        async: false,
-        type: 'GET',
-        success: (res)=>{
-            console.log('resources', res.data)
-            if(res.code == 0) {
-                layui.tree.render({
-                    elem: '#resource'  //绑定元素
-                    ,data: res.data     // 数据
-                    ,id: 'resource'
-                    ,showCheckbox: true     // 显示复选框
-                });
-            }
-        }
-
-    })
-
+    showTree('/role/resources', 'resource')
 
     mySubmit('addSubmit', 'POST', addIds);
 }
@@ -78,3 +61,37 @@ function getIds(checkedData, arr) {
 
     return arr;
 }
+
+//触发事件
+//工具条事件
+table.on('tool(roleList)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+
+    /**
+     * data 获得当前行数据
+     * event 获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+     * tr获得当前行 tr 的 DOM 对象（如果有的话）
+     */
+    let {data, event, tr} = obj;
+
+    console.log(obj)
+
+    let { roleId } = data
+
+    switch (event) {
+        case 'detail':
+            openLayer("/role/toDetail/"+roleId, "查看角色详情");
+            break;
+        case 'edit':    // 编辑
+            openLayer("/role/toUpdate/"+roleId, "修改角色");
+
+            showTree('/role/resources/' + roleId, 'resource')
+
+            mySubmit('updateSubmit', 'PUT', addIds)
+            break;
+        case 'del':
+
+            myDelete('/customer/' + customerId);
+
+            break;
+    }
+});

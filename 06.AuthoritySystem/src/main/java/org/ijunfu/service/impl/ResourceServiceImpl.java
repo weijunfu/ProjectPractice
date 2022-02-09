@@ -52,8 +52,35 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     }
 
     @Override
-    public List<Tree> resourcesList() {
+    public List<Tree> resourcesList(Long roleId) {
+        return null == roleId ? allResource() : getResourceByRoleId(roleId);
+    }
 
+    private List<Tree> getResourceByRoleId(Long roleId) {
+        LambdaQueryWrapper<Resource> wrapper = Wrappers.<Resource>lambdaQuery();
+        wrapper.isNull(Resource::getParentId).orderByAsc(Resource::getSort);
+
+        List<Tree> trees = baseMapper.listResourceByRoleId(wrapper, roleId);
+        trees.forEach(tree -> {
+            tree.setChecked(false);
+            Long id = tree.getId();
+
+            QueryWrapper<Resource> childWrapper = Wrappers.<Resource>query();
+            childWrapper
+                    .eq("re.parent_id", id)
+                    .orderByAsc("re.sort");
+
+            List<Tree> childs = baseMapper.listResourceByRoleId(childWrapper, roleId);
+            if(CollectionUtils.isNotEmpty(childs)){
+                tree.setChildren(childs);
+            }
+
+        });
+
+        return trees;
+    }
+
+    private List<Tree> allResource() {
         LambdaQueryWrapper<Resource> wrapper = Wrappers.<Resource>lambdaQuery();
         wrapper.isNull(Resource::getParentId).orderByAsc(Resource::getSort);
 

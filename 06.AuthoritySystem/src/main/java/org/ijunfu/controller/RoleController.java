@@ -12,6 +12,7 @@ import org.ijunfu.vo.Tree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -99,16 +100,34 @@ public class RoleController {
         return "role/add";
     }
 
-    @GetMapping(value = "/resources", produces = "application/json; charset=utf-8")
+    @GetMapping(value = {"/resources", "/resources/{roleId}"}, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Response<List<Tree>> resourcesList(){
-        return Response.ok(resourceService.resourcesList());
+    public Response<List<Tree>> resourcesList(@PathVariable(required = false) Long roleId){
+        List<Tree> trees = resourceService.resourcesList(roleId);
+        return Response.ok(trees);
     }
 
     @PostMapping
     @ResponseBody
     public Response add(@RequestBody Role role) {
         boolean success = roleService.saveRole(role);
+        return Result.buildResponse(success);
+    }
+
+    @GetMapping("/toUpdate/{roleId}")
+    public String toUpdatePage(@PathVariable Long roleId, Model model) {
+
+        Role role = roleService.getById(roleId);
+        model.addAttribute("role", role);
+        return "role/update";
+    }
+
+    @PutMapping
+    @ResponseBody
+    public Response update(@RequestBody Role role) {
+
+        boolean success = roleService.updateRole(role);
+
         return Result.buildResponse(success);
     }
 }

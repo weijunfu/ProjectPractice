@@ -34,7 +34,7 @@ class IResourceServiceTest {
 
     @Test
     void list2() {
-        List<Tree> trees = resourceService.resourcesList();
+        List<Tree> trees = resourceService.resourcesList(null);
         System.out.println(trees);
     }
 }

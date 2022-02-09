@@ -16,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IRoleService extends IService<Role> {
 
     boolean saveRole(Role role);
+
+    boolean updateRole(Role role);
 }
