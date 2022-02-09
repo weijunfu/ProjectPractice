@@ -137,4 +137,13 @@ public class RoleController {
         boolean success = roleService.deleteRole(roleId);
         return Result.buildResponse(success);
     }
+
+    @GetMapping("/toDetail/{roleId}")
+    public String toDetailPage(@PathVariable Long roleId, Model model){
+        Role role = roleService.getById(roleId);
+
+        model.addAttribute("role", role);
+
+        return "role/detail";
+    };
 }

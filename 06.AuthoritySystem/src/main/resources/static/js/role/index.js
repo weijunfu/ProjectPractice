@@ -80,6 +80,9 @@ table.on('tool(roleList)', function(obj){ //注：tool 是工具条事件名，t
     switch (event) {
         case 'detail':
             openLayer("/role/toDetail/"+roleId, "查看角色详情");
+
+            showTree('/role/resources/' + roleId, 'resource')
+
             break;
         case 'edit':    // 编辑
             openLayer("/role/toUpdate/"+roleId, "修改角色");

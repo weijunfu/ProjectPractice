@@ -5,20 +5,17 @@
 <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
 </head>
 <body>
-	<form class="layui-form" id="updateForm" th:action="@{/role}">
+	<div class="layui-form">
 		<div class="layui-form-item">
 			<label class="layui-form-label">角色名称</label>
-			<input type="hidden" name="roleId" th:value="${role.roleId}">
 			<div class="layui-input-block">
-				<input type="text" name="roleName" placeholder="角色名称"
-					   autocomplete="off" class="layui-input" lay-verify="required" maxlength="50" th:value="${role.roleName}">
+				<div class="layui-form-mid" th:text="${role.roleName}"></div>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">备注</label>
 			<div class="layui-input-block">
-				<input type="text" name="remarks" placeholder="备注"
-					   autocomplete="off" class="layui-input" maxlength="200" th:value="${role.remarks}">
+				<div class="layui-form-mid" th:text="${role.remarks}"></div>
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -29,10 +26,9 @@
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="updateSubmit">立即提交</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				<button type="button" class="layui-btn layui-btn-primary" onclick="layer.close(layer.index)">关闭</button>
 			</div>
 		</div>
-	</form>
+	</div>
 </body>
 </html>
