@@ -8,6 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 import java.util.*;
 
@@ -49,7 +50,7 @@ public class MyRealm extends AuthorizingRealm {
         if(null == password) return null;
 
         SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo("ijunfu", password, "myRealm");
-
+        auth.setCredentialsSalt(ByteSource.Util.bytes("ijunfu"));
         return auth;
     }
 
@@ -61,7 +62,7 @@ public class MyRealm extends AuthorizingRealm {
     {
         super.setName("myRealm");
 
-        users.put("ijunfu", "123456");
+        users.put("ijunfu", "ea3b5434cc1f13e9bf9aed4d6d10a06a");
 
         roles.put("ijunfu", new String[]{"root", "admin"});
 

@@ -286,3 +286,32 @@ public class MyRealm extends AuthorizingRealm {
 
 
 
+## 三、加密
+
+### 3.1 Hash
+
+```
+ // 加密
+HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+hashedCredentialsMatcher.setHashAlgorithmName("md5");       // 加密算法
+hashedCredentialsMatcher.setHashIterations(1);              // 加密次数
+realm.setCredentialsMatcher(hashedCredentialsMatcher);
+```
+
+### 3.2 加盐
+
+#### 认证时携带盐值
+```
+@Override
+protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+    // 获取用户名
+    String username = (String) token.getPrincipal();
+
+    String password = getPassword(username);
+    if(null == password) return null;
+
+    SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo("ijunfu", password, "myRealm");
+    auth.setCredentialsSalt(ByteSource.Util.bytes("ijunfu"));
+    return auth;
+}
+```
