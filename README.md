@@ -8,3 +8,4 @@
 + [05 MyBatis Plus 入门到精通练习项目](./05.MyBatis-Plus):white_check_mark:
 + [06 权限管理系统](./06.AuthoritySystem):white_check_mark:
 + [07 Shiro权限管理框架](./07.Shiro):white_medium_square:
++ [08 Redis](./08.Redis):white_medium_square:
