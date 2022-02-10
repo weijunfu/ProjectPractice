@@ -4,7 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.ijunfu</groupId>
     <artifactId>shiro</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>shiro-base</module>
+    </modules>
     <name>07.Shiro</name>
     <description>07.Shiro</description>
 
